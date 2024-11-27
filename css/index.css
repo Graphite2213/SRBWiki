@@ -1,0 +1,282 @@
+@font-face {
+    font-family: Linux Libertine;
+    src: url(../../font/LinLibertine_RZ.ttf);
+}
+
+input:focus
+{
+    border: 2px #36c solid;
+    outline: none !important;
+}
+
+input:focus-visible
+{
+    border: 2px #36c solid !important;
+    outline: none !important;
+}
+
+input:focus-within
+{
+    border: 2px #36c solid;
+    outline: none !important;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    line-height: 1.7 !important;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+a {
+    cursor: pointer;
+    color: #36c;
+    text-decoration: none;
+}
+
+pre {
+    font-family: inherit;
+    text-wrap: wrap;
+    color: inherit;
+}
+
+:hover {
+    text-decoration: underline;
+    color: #447ff5;
+}
+
+:active {
+    color: #0b0080;
+}
+
+:visited {
+    color: #6b4ba1;
+}
+
+.sidebarLink:hover {
+    color: #447ff5;
+    text-decoration: underline;
+}
+
+.seperator {
+    width: 95%;
+    height: 1px;
+    border-top: grey 1px solid;
+    align-self: center;
+    margin-bottom: 1vh;
+}
+
+#mainLayout {
+    display: flex;
+    width: 100vw;
+    height: fit-content;
+    align-items: stretch;
+}
+/* Sidebar area */
+#sidebar {
+    width: 15%;
+    height: auto;
+    background-color: #e8e8e8;
+    border-right: 1px grey solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+#logo {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    width: 7vw;
+    height: auto;
+}
+
+#searchbar {
+    width: 14vw;
+    height: 4vh;
+    margin-bottom: 2vh;
+    border-radius: 1px;
+    border: 2px grey solid;
+    font-size: 1.15em;
+}
+
+#featured {
+    padding-left: 5px;
+    align-self: flex-start;
+}
+
+#featuredText {
+    font-size: 1.1em;
+}
+
+#featuredArticles {
+    list-style-type: disc;
+    font-size: 1em;
+}
+
+.sidebarLink {
+    cursor: pointer;
+}
+
+.sidebarLink:visited {
+    color: #36c;
+}
+
+.followMode {
+    color: black;
+}
+
+/* Main post area */
+#mainArea {
+    width: 85%;
+    height: fit-content;
+    min-height: 100vh;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#postTitle {
+    margin-top: 2vh;
+    margin-bottom: 0vh;
+    padding-left: 2vw;
+    font-size: 2.2em;
+    align-self: flex-start;
+    font-weight: 200;
+    font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+#postText {
+    display: inline-block;
+    flex-direction: column;
+    padding-left: 2vw;
+    padding-right: 5vw;
+    font-size: 1em;
+    align-self: flex-start;
+    min-width: 85%;
+}
+
+#reftooltip {
+    position: absolute;
+    padding: .5%;
+    background-color: white;
+    border-radius: 1px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 2px rgba(12, 12, 12, 0.651);
+    transition: visibility .5s, opacity .2s linear;
+    visibility: hidden;
+    opacity: 0;
+}
+
+#searchresults {
+    position: absolute;
+}
+
+.result {
+    background-color: white;
+    margin-top: -2vh;
+    width: 13.8vw;
+    border: 1px grey solid;
+    border-top: 0;
+    border-bottom: 0;
+    margin-bottom: 2vh;
+}
+
+.srDarkTheme {
+    background-color: rgb(31, 32, 43);
+}
+
+
+.final {
+    border-bottom: 1px grey solid;
+}
+
+.result:hover {
+    background-color: #337ab7;
+    color: white;
+    cursor: pointer;
+}
+
+.colbutton {
+    float: right;
+    appearance: none;
+    background: none;
+    margin: 0;
+    padding-right: 0.2em;
+    padding-left: 0.2em;
+    border: 0;
+    font: inherit;
+    cursor: pointer;
+}
+
+.buttontext:hover {
+    text-decoration: underline;
+    color: #447ff5;
+}
+
+.buttontext:active {
+    color: #0b0080;
+}
+
+.buttontext {
+    color: #36c;
+}
+
+.slotdiv {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+.contentsContainer {
+    overflow: hidden auto;
+    position: sticky;
+    top: 24px;
+    box-sizing: border-box;
+    max-height: calc(100vh -(24px* 2));
+}
+
+.contentListChild:hover {
+    text-decoration: underline;
+}
+
+.missingText {
+    border: 1px grey solid;
+    background-color: #e8e8e8;
+    font-size: 1.15em;
+    padding: 10px;
+}
+
+#homeTiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1vw;
+    font-size: 1.15em;
+}
+
+#textTile {
+    border: 1px grey solid;
+    background-color: #e8e8e8;
+    min-height: 15vh;
+    width: 72vw;
+    padding: 10px;
+}
+
+#featuredTile {
+    border: 1px grey solid;
+    background-color: #e8e8e8;
+    min-height: 45vh;
+    min-width: 35vw;
+    padding: 10px;
+}
+
+#newsTile {
+    border: 1px grey solid;
+    background-color: #e8e8e8;
+    min-height: 45vh;
+    min-width: 35vw;
+    padding: 10px;
+}

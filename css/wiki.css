@@ -1,0 +1,23 @@
+:root {
+    --h1-font-size: 1.5em;
+    --h2-font-size: 1.1em;
+    --h3-font-size: 1em;
+}
+
+wvs-side {
+    flex-basis: 100%;
+}
+
+wvs-side:last-child {
+    border-left: 1px dotted grey;
+    padding-left: 2%;
+}
+
+wvs-side ul {
+    padding-left: 1vw;
+    margin-top: .5vh;
+}
+
+.nonExistent {
+    color: #bf3c2c;
+}

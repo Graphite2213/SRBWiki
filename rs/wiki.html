@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>SNSWiki</title>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name='keywords' content="">
+    <meta name="twitter:card" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta content="#b5042a" data-react-helmet="true" name="theme-color">
+
+    <meta name='url' content='http://sns.graphite.in.rs/'>
+    <meta name='language' content='RS'>
+    <meta name="robots" content="all">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/wiki.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+    <script src="https://unpkg.com/json5@2/dist/index.min.js"></script>
+</head>
+
+<body onload="OnLoad('rs')">
+    <div id="mainLayout">
+        <div id="sidebar">
+            <a href="./home.html"><img id="logo" src="../images/logo.png"></a>
+            <div id="searchwrapper">
+                <input id="searchbar" autocomplete="off" placeholder="Pretraži SNSWiki" oninput="OnSearch(event)"/>
+                <div id="searchresults">
+                </div>
+            </div>
+            <div class="seperator"></div>
+            <div id="featured"><p id="featuredText">
+                <a class="sidebarLink" href="../en/">Pomozite u održavanju SNSWiki</a><br>
+                <a class="sidebarLink" href="https://ko-fi.com/graphite2213">Podržite razvoj SNSWiki</a><br>
+                <br>
+                <a onclick="SwitchToDark()" class="sidebarLink" id="themeSwitch">Tamna tema</a><br>
+                <a class="sidebarLink" id="otherLanguage" href="../en/">English version of this page</a><br>
+                <br>
+                <a class="sidebarLink" id="editPageLink" href="">Uređuj ovu stranicu</a><br>
+                <a class="sidebarLink" href="editor.html">Otvori editor</a>
+                <br>
+                <div class="contentsContainer">
+                    <b>Sadržaj:</b><br>
+                    <ul id="pageContent" style="list-style: none; padding-left: 0;">
+                    </ul>
+                </div>
+            </p></div>
+            <div class="seperator" style="margin-top: auto;"></div>
+            <div style="margin-bottom: 10px;"><i>Graphite 2024-2024. ❤️</i></div>
+        </div>
+        <div id="mainArea">
+            <div id="postTitle">Blank</div>
+            <div class="seperator"></div>
+            <div id="postText">
+            </div>
+            <div id="reftooltip"></div>
+        </div>
+    </div>
+    <script src="../js/index.js"></script>
+    <script src="../js/post.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/theme.js"></script>
+    <script type="module" src="../js/elements/base.js"></script>
+    <script type="module" src="../js/elements/headers.js"></script>
+    <script type="module" src="../js/elements/infobox.js"></script>
+    <script type="module" src="../js/elements/ref.js"></script>
+</body>
+    

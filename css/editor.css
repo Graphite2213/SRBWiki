@@ -1,0 +1,180 @@
+#postText {
+    display: flex;
+    flex-direction: column;
+    padding-right: 0;
+    min-width: 95%;
+}
+
+#editorOutput {
+    width: 95%;
+}
+
+#toolbar {
+    height: 4vh;
+    width: 80vw;
+    border: 1px solid grey;
+    background-color: #e6e6e6;
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5vw;
+}
+
+#editorInput {
+    width: 80vw;
+    height: 80vh;
+    border: 1px solid grey;
+    border-top: 0;
+}
+
+.annotation {
+    width: fit-content;
+    margin-bottom: 1vh;
+    background-color: #e6e6e6;
+    border-left: 10px solid #eb7175;
+    border-right: 1px solid grey;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    padding: 5px;
+}
+
+.tool {
+    width: 20px;
+    height: 30px;
+    background-size: 100%;  
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: contrast(0.2);
+}
+
+.toolWrapper {
+    height: 32px;
+    width: 32px;
+    border: 1px transparent solid;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toolWrapper:hover {
+    cursor: pointer;
+    border: 1px grey solid;
+}
+
+.toolWrapper:hover .tool {
+    filter: contrast(1);
+}
+
+.toolWrapper:hover .darkModif {
+    filter: invert(100%) contrast(1);
+}
+
+.previewWrapper {
+    width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+.previewWrapper:hover #previewButton {
+    color: black;
+}
+
+.previewWrapper:hover #previewIcon {
+    background-color: rgba(230,230,230,0);
+}
+
+#boldTool {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E bold %3C/title%3E%3Cpath d=%22M8.9 1c2.4 0 4.2.3 5.4 1 1.3.7 1.9 1.9 1.9 3.6 0 1-.3 1.9-.7 2.6a3 3 0 0 1-2 1.3 4.8 4.8 0 0 1 1.6.7c.4.3.8.8 1.1 1.3a5 5 0 0 1 .4 2.3 4.6 4.6 0 0 1-1.7 3.8A7.6 7.6 0 0 1 10 19H3.3V1zm.4 7.1c1.1 0 1.9-.1 2.3-.5.5-.3.7-.9.7-1.5 0-.7-.3-1.2-.8-1.5s-1.3-.5-2.4-.5h-2v4zm-2.2 3V16h2.5c1.1 0 2-.3 2.4-.7.5-.5.7-1 .7-1.8a2 2 0 0 0-.7-1.6c-.5-.4-1.3-.6-2.5-.6H7z%22/%3E%3C/svg%3E");
+}
+
+#italicTool {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E italic %3C/title%3E%3Cpath d=%22m5 19 .33-1.51 2.17-.66 2.9-13.66-1.9-.63L9 1h7l-.71 1.6-2.29.57-2.83 13.66 2.14.66L12 19z%22/%3E%3C/svg%3E");
+}
+
+#linkTool {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E link %3C/title%3E%3Cpath d=%22M4.83 15h2.91a4.9 4.9 0 0 1-1.55-2H5a3 3 0 1 1 0-6h3a3 3 0 0 1 2.82 4h2.1a5 5 0 0 0 .08-.83v-.34A4.83 4.83 0 0 0 8.17 5H4.83A4.83 4.83 0 0 0 0 9.83v.34A4.83 4.83 0 0 0 4.83 15%22/%3E%3Cpath d=%22M15.17 5h-2.91a4.9 4.9 0 0 1 1.55 2H15a3 3 0 1 1 0 6h-3a3 3 0 0 1-2.82-4h-2.1a5 5 0 0 0-.08.83v.34A4.83 4.83 0 0 0 11.83 15h3.34A4.83 4.83 0 0 0 20 10.17v-.34A4.83 4.83 0 0 0 15.17 5%22/%3E%3C/svg%3E");
+}
+
+#imageTool {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E image %3C/title%3E%3Cpath d=%22M2 2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-.17 13 4.09-5.25 2.92 3.51L12.92 8l5.25 7z%22/%3E%3C/svg%3E");
+}
+
+#highlightToggle {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E highlight %3C/title%3E%3Cpath d=%22M15.14 2.27a1 1 0 0 0-1.41 0l-10 10a1 1 0 0 0 0 1.41L4 14l-3 4h5l1-1 .29.29a1 1 0 0 0 1.41 0l10-10a1 1 0 0 0 .03-1.43zM7 15l-2-2 9-9 2 2z%22/%3E%3C/svg%3E");
+}
+
+#wrapToggle {
+    background-image: url("https://www.svgrepo.com/show/361405/word-wrap.svg");
+}
+
+#previewIcon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E article %3C/title%3E%3Cpath d=%22M5 1a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 3h5v1H5zm0 2h5v1H5zm0 2h5v1H5zm10 7H5v-1h10zm0-2H5v-1h10zm0-2H5v-1h10zm0-2h-4V4h4z%22/%3E%3C/svg%3E");
+    width: 20px;
+    height: auto;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: contrast(0.2);
+    background-blend-mode: lighten;
+    margin-right: 2px;
+}
+
+#previewButton {
+    width: fit-content;
+    line-height: 2;
+    display: flex;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+#addDraft {
+    background-image: url("https://static.thenounproject.com/png/950-200.png");
+}
+
+#deleteDraft {
+    background-image: url("https://www.svgrepo.com/show/78963/rubbish-bin.svg");
+}
+
+#undo {
+    background-image: url("https://www.svgrepo.com/show/341243/undo.svg");
+}
+
+#redo {
+    background-image: url("https://www.svgrepo.com/show/341243/undo.svg");
+    transform: scaleX(-1);
+    filter: FlipH;
+}
+
+#draftDropdown {
+    width: 10vw;
+    height: 100%;
+}
+
+#draftDropdown:focus-visible {
+    outline: 0;
+}
+
+#draftDropdownText {
+    width: 10vw;
+    height: 100%;
+}
+
+
+.selectDraft {
+    width: 10vw;
+}
+
+.minusDraft {
+    margin-left: auto;
+}
+
+.toolbarSeparator {
+    height: 30px;
+    width: 0;
+
+    border-right: 1px solid grey;
+}

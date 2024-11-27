@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>SNSWiki</title>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name='keywords' content="">
+    <meta name="twitter:card" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta content="#b5042a" data-react-helmet="true" name="theme-color">
+
+    <meta name='url' content='http://sns.graphite.in.rs/'>
+    <meta name='language' content='RS'>
+    <meta name="robots" content="all">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+    <script src="https://unpkg.com/json5@2/dist/index.min.js"></script>
+</head>
+
+<body onload="OnLoad('en')">
+    <div id="mainLayout">
+        <div id="sidebar">
+            <a href="./home.html"><img id="logo" src="../images/logo.png"></a>
+            <div id="searchwrapper">
+                <input id="searchbar" autocomplete="off" placeholder="Search SNSWiki" oninput="OnSearch(event)"/>
+                <div id="searchresults">
+                </div>
+            </div>
+            <div class="seperator"></div>
+            <div id="featured"><p id="featuredText">
+                <a class="sidebarLink" href="https://github.com/Graphite2213/SNSWiki-Pages">Help maintain SNSWiki</a><br>
+                <a class="sidebarLink" href="https://ko-fi.com/graphite2213">Support the development of SNSWiki</a><br>
+                <br>
+                <a onclick="SwitchToDark()" class="sidebarLink" id="themeSwitch">Dark theme</a><br>
+                <a class="sidebarLink" href="editor.html">Open on-site editor</a><br>
+                <br>
+                <a class="sidebarLink" id="otherLanguage" href="../rs/home.html">Srpska verzija ove stranice</a><br>
+                <br>
+            </p></div>
+            <div class="seperator" style="margin-top: auto;"></div>
+            <div style="margin-bottom: 10px;"><i>Graphite 2024-2024. ❤️</i></div>
+        </div>
+        <div id="mainArea">
+            <div id="postTitle">Welcome to SNSWiki!</div>
+            <div class="seperator"></div>
+            <div id="postText"><p id="postBody"></p>
+                <div id="homeTiles">
+                    <div id="textTile" class="followModeInfobox">
+                        Welcome to SNSWiki! This is a project intended to document, archive and spread the word about controversies, incidents and other tragic events directly caused by the government's incompetence.
+                        <br>
+                        Of course this site isn't exclusive to SNS-caused events but considering they were the only ones that got a chance to ruin Serbia in the past 12 years, this site was named accordingly.
+                        <br>
+                        If you are interested in contributing you can:
+                        <br>
+                        <ul style="list-style-type: '- ';">
+                        <li>Edit and create new articles, a guide to help you with that is located <a href="https://github.com/Graphite2213/SNSWiki-Pages/tree/master/rs">here</a>.</li> 
+                        <li>You can help with developing the site itself, if you are familiar with web development, <a href="https://github.com/Graphite2213/SNSWiki/tree/master/">here</a>.</li> 
+                        </ul>
+                    </div>
+                    <div id="featuredTile" class="followModeInfobox">
+                        Featured articles:
+                    </div>
+                    <div id="newsTile" class="followModeInfobox">
+                        In the news:
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="reftooltip"></div>
+    </div>
+    <script src="../js/index.js"></script>
+    <script src="../js/search.js"></script>
+    <script src="../js/post.js"></script>
+    <script src="../js/theme.js"></script>
+</body>
+    
