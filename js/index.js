@@ -4,7 +4,7 @@
 
 // Constants (deployment values)
 const fetchURL = "https://raw.githubusercontent.com/Graphite2213/SNSWiki-Pages/master/";
-const selfURL = "http://localhost:8080"
+const selfURL = "http://sns.graphite.in.rs"
 const currentPage = window.location.pathname.split("/").pop();
 
 // Global variables
