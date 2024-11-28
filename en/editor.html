@@ -34,6 +34,15 @@
 
 <body onload="OnLoad('en'); EditorInitLoad()">
     <div id="mainLayout">
+        <div id="confirmationBackdrop">
+            <div id="confirmationPrompt">
+                <span id="confirmationPromptText">Da li ste sigurni da želite da obrišete draft "", <b>ova akcija je trajna</b>.</span>
+                <span>
+                    <button id="cancel" onclick="cancelDraft()">Ne</button>
+                    <button id="delete" onclick="deleteDraft()">Da, obriši</button>
+                </span>
+            </div>
+        </div>
         <div id="sidebar">
             <a href="./home.html"><img id="logo" src="../images/logo.png"></a>
             <div id="searchwrapper">

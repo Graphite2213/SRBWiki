@@ -45,7 +45,7 @@ async function GetSearchMeta()
     });
 
     if (!response.ok) throw 'bad request';
-    window._searchMeta = JSON.parse(await response.text());
+    window._searchMeta = JSON5.parse(await response.text());
     LoadSidebar();
 }
 
@@ -62,6 +62,25 @@ function LoadSidebar()
             });
             document.getElementById("pageContent").innerHTML = allTitles;
         }, 50);
+    }
+    if (currentPage == "home.html")
+    {
+        const featured = window._searchMeta.featured;
+        const news = window._searchMeta.news;
+
+        let featuredList = ``;
+        featured.forEach(e => {
+            featuredList += `<li>${e}</li>`
+        });
+
+        document.getElementById("featuredList").innerHTML = featuredList;
+
+        let newsList = ``;
+        news.forEach(e => {
+            newsList += `<li>${e}</li>`
+        });
+
+        document.getElementById("newsList").innerHTML = newsList;
     }
 }
 

@@ -269,7 +269,7 @@ pre {
     border: 1px grey solid;
     background-color: #e8e8e8;
     min-height: 45vh;
-    min-width: 35vw;
+    width: 35vw;
     padding: 10px;
 }
 
@@ -277,6 +277,6 @@ pre {
     border: 1px grey solid;
     background-color: #e8e8e8;
     min-height: 45vh;
-    min-width: 35vw;
+    width: 35vw;
     padding: 10px;
 }

@@ -34,6 +34,15 @@
 
 <body onload="OnLoad('rs'); EditorLoad()">
     <div id="mainLayout">
+        <div id="confirmationBackdrop">
+            <div id="confirmationPrompt">
+                <span id="confirmationPromptText">Da li ste sigurni da želite da obrišete draft "", <b>ova akcija je trajna</b>.</span>
+                <span>
+                    <button id="cancel" onclick="cancelDraft()">Ne</button>
+                    <button id="delete" onclick="deleteDraft()">Da, obriši</button>
+                </span>
+            </div>
+        </div>
         <div id="sidebar">
             <a href="./home.html"><img id="logo" src="../images/logo.png"></a>
             <div id="searchwrapper">
@@ -69,7 +78,7 @@
                     <div onclick="undoEditor()" class="toolWrapper"><div class="tool" id="undo"></div></div>
                     <div onclick="redoEditor()" class="toolWrapper"><div class="tool" id="redo"></div></div>
 
-                    <div onclick="deleteDraft()" class="toolWrapper minusDraft"><div class="tool" id="deleteDraft"></div></div>
+                    <div onclick="preDeleteDraft()" class="toolWrapper minusDraft"><div class="tool" id="deleteDraft"></div></div>
                     <div onclick="addDraft()" class="toolWrapper plusDraft"><div class="tool" id="addDraft"></div></div>
                     <div class="toolWrapper selectDraft" id="draftDropWrapper">
                         <select id="draftDropdown" onchange="LoadFromList()">

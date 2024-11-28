@@ -178,3 +178,61 @@
 
     border-right: 1px solid grey;
 }
+
+#confirmationBackdrop {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1000   ;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#confirmationPrompt {
+    position: absolute;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, 0);
+    min-width: 30vw;
+    height: 10vh;
+    background-color: white;
+    padding: 15px;
+    border: 1px black solid;
+}
+
+#delete {
+    background-color: #eb7175;
+    box-shadow: 0;
+    border: 1px solid grey;
+    padding: 10px;
+    font-weight: bold;
+    margin-left: 20px;
+    width: 5vw;
+}
+
+#cancel {
+    background-color: #e6e6e6;
+    box-shadow: 0;
+    border: 1px solid grey;
+    padding: 10px;
+    font-weight: bold;
+    margin-left: 20px;
+    width: 5vw;
+}
+
+#cancel:hover {
+    background-color: #bfbdbd;
+    cursor: pointer;
+}
+
+#delete:hover {
+    background-color: #ed4046;
+    cursor: pointer;
+}

@@ -66,7 +66,7 @@ function addDraft()
 
     if (draftList.length < 9 && !creatingDraft)
     {
-        document.getElementById("draftDropWrapper").innerHTML = `<input id="draftDropdownText" placeholder="Unnamed Draft">`;
+        document.getElementById("draftDropWrapper").innerHTML = `<input id="draftDropdownText" placeholder="Unnamed Draft" onkeyup="OnEnter(event)">`;
         creatingDraft = true;
         window._editorGlobal.setReadOnly(true);
         return;
@@ -92,9 +92,27 @@ function addDraft()
     }
 }
 
+function OnEnter(e)
+{
+    if (e.keyCode === 13) addDraft();
+}
+
+function preDeleteDraft()
+{
+    const currentDraft = document.getElementById("draftDropdown").value;
+    document.getElementById("confirmationPromptText").innerText = document.getElementById("confirmationPromptText").innerText.replace('""', '"'+ currentDraft + '"'); 
+    document.getElementById("confirmationBackdrop").style.display = "block";
+}
+
+function cancelDraft()
+{
+    document.getElementById("confirmationBackdrop").style.display = "none";
+}
+
 function deleteDraft()
 {
     const currentDraft = document.getElementById("draftDropdown").value;
+    document.getElementById("confirmationBackdrop").style.display = "none";
     const storageMeta = JSON.parse(window.localStorage.getItem(localStorageName + "-meta"));
     const draftList = storageMeta.allDrafts;
     draftList.splice(draftList.findIndex(p => p == currentDraft), 1);
