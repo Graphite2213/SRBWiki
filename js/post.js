@@ -34,6 +34,8 @@ async function LoadPost()
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const page = urlParams.get('page');
+    const properOtherLanguage = (window.innerWidth > 641) ? "otherLanguage" : "otherLanguageMobile";
+    const properEditPage = (window.innerWidth > 641) ? "editPageLink" : "editPageLinkMobile";
 
     if (!page) return console.warn("W: No query provided, initial load skipped.");
     if (!window._searchMeta.pages.includes(page))
@@ -45,8 +47,8 @@ async function LoadPost()
         const postBody = await d.html;
         document.getElementById("postTitle").innerText = page;
         document.getElementById("postText").innerHTML = `${postBody}`;
-        document.getElementById("editPageLink").href = `https://github.com/Graphite2213/SNSWiki-Pages/blob/master/${locale}/`;
-        document.getElementById("editPageLink").classList.add("nonExistent");
+        document.getElementById(properEditPage).href = `https://github.com/Graphite2213/SNSWiki-Pages/blob/master/${locale}/`;
+        document.getElementById(properEditPage).classList.add("nonExistent");
         return;
     }
     pageTitle = page;
@@ -56,15 +58,15 @@ async function LoadPost()
 
     document.getElementById("postTitle").innerText = page;
     document.getElementById("postText").innerHTML = `${postBody}`;
-    document.getElementById("editPageLink").href = `https://github.com/Graphite2213/SNSWiki-Pages/blob/master/${locale}/${page}/${page.toLowerCase()}.html`;
+    document.getElementById(properEditPage).href = `https://github.com/Graphite2213/SNSWiki-Pages/blob/master/${locale}/${page}/${page.toLowerCase()}.html`;
     if (metaBody == {} || metaBody.link == "" || typeof metaBody.link == "undefined") 
     {
-        document.getElementById("otherLanguage").classList.add("nonExistent");
-        document.getElementById("otherLanguage").classList.remove("sidebarLink");
+        document.getElementById(properOtherLanguage).classList.add("nonExistent");
+        document.getElementById(properOtherLanguage).classList.remove("sidebarLink");
     }
     else
     {
-        document.getElementById("otherLanguage").href = selfURL + `/${oppLocale}/wiki.html?page=${metaBody.link}`;
+        document.getElementById(properOtherLanguage).href = selfURL + `/${oppLocale}/wiki.html?page=${metaBody.link}`;
     }
 
     // Load sidebar a second time, because of possible bad timing with network

@@ -52,6 +52,22 @@
             <div style="margin-bottom: 10px;"><i>Graphite 2024-2024. ❤️</i></div>
         </div>
         <div id="mainArea">
+            <div id="mobileTopBar">
+                <a href="./home.html"><img src="../images/logo.png" style="height: 25px; width: auto; margin-left: 10px;"></a>
+                <div id="burgerMenu" onclick="toggleMobileDropdown()"></div>
+            </div>
+            <div id="mobileDropdown">
+                <div class="dropdown search">
+                    <input id="searchbarMobile" autocomplete="off" placeholder="Pretraži SNSWiki" oninput="OnSearch(event)"/>
+                    <div id="resultsMobile">
+                </div>
+            </div>
+                <div class="dropdown"><a class="topbarLink" href="https://github.com/Graphite2213/SNSWiki-Pages/blob/master/rs/">Pomozite u održavanju SNSWiki</a><br></div>
+                <div class="dropdown"><a class="topbarLink" href="https://ko-fi.com/graphite2213">Podržite razvoj SNSWiki</a><br></div>
+                <div class="dropdown"><a onclick="SwitchToDark()" class="topbarLink" id="themeSwitch">Tamna tema</a><br></div>
+                <div class="dropdown"><a class="topbarLink" href="editor.html">Otvori editor</a><br></div>
+                <div class="dropdown"><a class="topbarLink" href="../en/home.html">English version of this page</a><br></div>
+            </div>
             <div id="postTitle">Dobrodošli na SNSWiki!</div>
             <div class="seperator"></div>
             <div id="postText"><p id="postBody">

@@ -63,6 +63,21 @@
             <div style="margin-bottom: 10px;"><i>Graphite 2024-2024. ❤️</i></div>
         </div>
         <div id="mainArea">
+            <div id="mobileTopBar">
+                <a href="./home.html"><img src="../images/logo.png" style="height: 25px; width: auto; margin-left: 10px;"></a>
+                <div id="burgerMenu" onclick="toggleMobileDropdown()"></div>
+            </div>
+            <div id="mobileDropdown">
+                <div class="dropdown search">
+                    <input id="searchbarMobile" autocomplete="off" placeholder="Pretraži SNSWiki" oninput="OnSearch(event)"/>
+                    <div id="resultsMobile">
+                </div>
+            </div>
+                <div class="dropdown"><a class="topbarLink" href="https://github.com/Graphite2213/SNSWiki-Pages/blob/master/rs/">Help maintain SNSWiki</a><br></div>
+                <div class="dropdown"><a class="topbarLink" href="https://ko-fi.com/graphite2213">Support the development of SNSWiki</a><br></div>
+                <div class="dropdown"><a onclick="SwitchToDark()" class="topbarLink" id="themeSwitch">Dark theme</a><br></div>
+                <div class="dropdown"><a class="topbarLink" id="otherLanguageMobile" href="">Srpska verzija ove stranice</a><br></div>
+            </div>
             <div id="postTitle">Editor</div>
             <div class="seperator"></div>
             <div class="annotation followModeInfobox"><b>Please read the editor use guide before using the editor.</b> Not doing this may result in loss of work.</div>

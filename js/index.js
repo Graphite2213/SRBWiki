@@ -14,6 +14,7 @@ let locale;
 let oppLocale;
 let theme;
 let barToClearNote = true;
+let showingDropdown = false;
 
 // Initialize sitewide variables (used in shadow DOM too)
 window._searchMeta = "";
@@ -120,4 +121,11 @@ class CookieManager {
     static SetCookie(cname, value) {
         document.cookie = `${cname}=${value}`;
     }
+}
+
+function toggleMobileDropdown()
+{
+    if (showingDropdown) document.getElementById("mobileDropdown").style.display = "none";
+    else document.getElementById("mobileDropdown").style.display = "flex";
+    showingDropdown = !showingDropdown;
 }

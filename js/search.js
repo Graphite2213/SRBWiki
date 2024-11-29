@@ -1,8 +1,9 @@
 // Search function for all pages
 function OnSearch(e)
 {
+    const correctResults = (window.innerWidth > 641) ? "searchresults" : "resultsMobile";
     const query = e.target.value.toLowerCase();
-    if (query.trim() == "" || query.length < 3) return document.getElementById("searchresults").innerHTML = "";
+    if (query.trim() == "" || query.length < 3) return document.getElementById(correctResults).innerHTML = "";
 
     const add = [];
     let last = "";
@@ -16,5 +17,5 @@ function OnSearch(e)
 
     add.pop();
     add.push(`<div onclick="InternalLink(event)" data-href="${last}" class="result final ${isBlack}">${last}</div>`)
-    document.getElementById("searchresults").innerHTML = add.join("");
+    document.getElementById(correctResults).innerHTML = add.join("");
 }

@@ -280,3 +280,129 @@ pre {
     width: 35vw;
     padding: 10px;
 }
+
+#mobileTopBar {
+    width: 100%;
+    height: 5vh;
+    background-color: #e8e8e8;
+    display: flex;
+    border-bottom: 1px grey solid;
+    align-items: center;
+    display: none;
+}
+
+#burgerMenu {
+    background-image: url("https://www.svgrepo.com/show/506800/burger-menu.svg");
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+    margin-left: auto;
+    margin-right: 25px;
+    border: 1px transparent solid;
+}
+
+#burgerMenu:hover {
+    border: 1px grey solid;
+}
+
+#burgerMenu:active {
+    border: 1px grey solid;
+}
+
+#mobileDropdown {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    flex-direction: column;
+    border-bottom: 1px solid grey;
+    display: none;
+}
+
+.dropdown {
+    height: 5vh;
+    width: 97.5%;
+    background-color: #e8e8e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+}
+
+.dropdown:hover {
+    border-bottom: 1px grey solid;
+    border-top: 1px grey solid;
+    cursor: pointer;
+}
+
+.search {
+    min-height: 5vh;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.search:hover {
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.topbarLink {
+    color: inherit;
+}
+
+.topbarLink:hover {
+    text-decoration: none;
+}
+
+#searchbarMobile {
+    width: 95%;
+    height: 4vh;
+}
+
+@media (max-width:641px)  {
+    #mainArea {
+        width: 100%;
+    }
+
+    #sidebar {
+        display: none;
+    }
+
+    #homeTiles {
+        gap: 2vw;
+    }
+
+    #textTile {
+        width: 80vw;
+    }
+
+    #newsTile {
+        width: 80vw;
+    }
+
+    #featuredTile {
+        width: 80vw;
+    }
+
+    #postTitle {
+        align-self: center;
+        margin-left: -2vw;
+        padding-left: 0;
+    }
+
+    #mobileTopBar {
+        display: flex;
+    }
+
+    .seperator {
+        width: 90%;
+    }
+
+    .result {
+        margin-top: 0;
+        margin-bottom: 0;
+        width: 92vw;
+    }
+ }

@@ -236,3 +236,18 @@
     background-color: #ed4046;
     cursor: pointer;
 }
+
+@media (max-width:641px)  {
+    #editorInput {
+        width: 98%;
+    }
+
+    #toolbar {
+        width: 98%;
+    }
+
+    .annotation {
+        width: 90%;
+        margin-left: -15px;
+    }
+}
