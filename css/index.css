@@ -182,6 +182,8 @@ pre {
     border-top: 0;
     border-bottom: 0;
     margin-bottom: 2vh;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .srDarkTheme {
@@ -313,11 +315,12 @@ pre {
 
 #mobileDropdown {
     display: flex;
-    width: 100%;
+    width: 105%;
     height: fit-content;
     flex-direction: column;
     border-bottom: 1px solid grey;
     display: none;
+    align-items: center;
 }
 
 .dropdown {
@@ -413,6 +416,8 @@ pre {
     .result {
         margin-top: 0;
         margin-bottom: 0;
-        width: 92vw;
+        width: 95vw;
+        position: absolute;
+        left: 2%;
     }
  }

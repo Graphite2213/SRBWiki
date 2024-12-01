@@ -2,6 +2,9 @@
 function SwitchToDark() {
     CookieManager.SetCookie("theme", "dark");
     const themeText = (locale == "en") ? "Light theme" : "Svetli režim";
+    const correctThemeSwitch = (window.innerWidth > 641) ? "themeSwitch" : "themeSwitchMobile";
+
+    document.getElementById("burgerMenu").style.filter = "invert(1)";
 
     for (x of document.querySelectorAll(".toolWrapper div")) {
         x.style.filter = "{ filter: contrast(0.2) invert(100%); } :hover { filter: contrast(1) invert(100%); }";
@@ -15,10 +18,10 @@ function SwitchToDark() {
         if (highlightT) document.getElementById("highlightToggle").style.filter = "invert(100%) contrast(1)";
     } 
     document.getElementById("mainLayout").style.color = "#f0f0f0";
-    document.getElementById("themeSwitch").innerText = themeText;
+    document.getElementById(correctThemeSwitch).innerText = themeText;
     document.getElementById("sidebar").style.backgroundColor = "#14141a";
     document.getElementById("mainArea").style.backgroundColor = "#1f202b";
-    document.getElementById("themeSwitch").addEventListener("click", (e) => {
+    document.getElementById(correctThemeSwitch).addEventListener("click", (e) => {
         e.preventDefault();
         SwitchToLight();
     });
@@ -41,9 +44,12 @@ function SwitchToDark() {
 // Switch to light theme
 function SwitchToLight() {
     CookieManager.SetCookie("theme", "light");
+    const correctThemeSwitch = (window.innerWidth > 641) ? "themeSwitch" : "themeSwitchMobile";
     const themeText = (locale == "en") ? "Dark theme" : "Tamni režim";
 
-    document.getElementById("themeSwitch").addEventListener("click", (e) => {
+    document.getElementById("burgerMenu").style.filter = "invert(0)";
+
+    document.getElementById(correctThemeSwitch).addEventListener("click", (e) => {
         e.preventDefault();
         SwitchToDark();
     });
@@ -56,7 +62,7 @@ function SwitchToLight() {
         if (highlightT) document.getElementById("highlightToggle").style.filter = "contrast(1)";
     }
     document.getElementById("mainLayout").style.color = "black";
-    document.getElementById("themeSwitch").innerText = themeText;
+    document.getElementById(correctThemeSwitch).innerText = themeText;
     document.getElementById("sidebar").style.backgroundColor = "#e8e8e8";
     document.getElementById("mainArea").style.backgroundColor = "#fafafa"; 
 
