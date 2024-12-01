@@ -7,7 +7,7 @@ function OnSearch(e)
 
     const add = [];
     let last = "";
-    const currTheme = CookieManager.GetCookie("theme");
+    let currTheme = CookieManager.GetCookie("theme");
     if (currTheme == '') 
     {
         CookieManager.SetCookie("theme", "light");
