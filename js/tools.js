@@ -100,7 +100,7 @@ function OnEnter(e)
 function preDeleteDraft()
 {
     const currentDraft = document.getElementById("draftDropdown").value;
-    document.getElementById("confirmationPromptText").innerText = document.getElementById("confirmationPromptText").innerText.replace('""', '"'+ currentDraft + '"'); 
+    document.getElementById("confirmationPromptText").innerHTML = document.getElementById("confirmationPromptText").innerText.replace('""', '"'+ currentDraft + '"'); 
     document.getElementById("confirmationBackdrop").style.display = "block";
 }
 
