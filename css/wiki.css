@@ -21,3 +21,9 @@ wvs-side ul {
 .nonExistent {
     color: #bf3c2c;
 }
+
+@media (max-width:641px)  {
+    wvs-side ul {
+        padding-left: 5vw;
+    }
+}

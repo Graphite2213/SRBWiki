@@ -94,10 +94,12 @@ async function NotationHover(e)
 // Un-hovering inline citations
 async function NotationHoverClear()
 {
-    if (barToClearNote) return;
-    document.getElementById("reftooltip").style.visibility = "hidden";
-    document.getElementById("reftooltip").style.opacity = "0";
-    clearTimeout(currHover);
+    setTimeout(() => {
+        if (barToClearNote) return;
+        document.getElementById("reftooltip").style.visibility = "hidden";
+        document.getElementById("reftooltip").style.opacity = "0";
+        clearTimeout(currHover);
+    }, 100);
 }
 
 async function HoverRefBox()
@@ -109,7 +111,6 @@ async function HoverRefBoxClear()
 {
     barToClearNote = false;
     NotationHoverClear();
-    barToClearNote = true;
 }
 
 function SetMetadata(desc, image, keywords)

@@ -101,18 +101,29 @@ class RefContain extends LitElement {
         page-break-inside: avoid;
         break-inside: avoid-column;
     }
+    
+    li:target {
+        background-color: red;
+    }
 
     .reflist {
-        font-size: 1em;
+        width: 80%;
+        font-size: 95%;
         margin-bottom: 0.5em;
         list-style-type: decimal;
         margin-top: 0.3em;
-        column-width: 30vw;
+        column-width: 30em;
         padding-bottom: 2vh;
     }
     
     a {
         color: #337ab7;
+    }
+
+    @media (max-width:641px)  {
+        .reflist {
+            column-width: 90vw;
+        }
     }
     `;
 
@@ -170,7 +181,7 @@ class InlineRef extends LitElement {
             const text = this.innerHTML;
             this.instRef = window._RefManager.addRef(text, this.name);
         }
-		return html`<sup><a href="/#ref_link_${this.instRef.refNumber}" onmouseover="NotationHover(event)" onmouseout="NotationHoverClear(event)">[${this.instRef.refNumber}]</a></sup>`
+		return html`<sup><a data-ref_number="${this.instRef.refNumber}" onmouseover="NotationHover(event)" onmouseout="NotationHoverClear(event)" onclick="ScrollRefIntoView(event)">[${this.instRef.refNumber}]</a></sup>`
 	}
 }
 

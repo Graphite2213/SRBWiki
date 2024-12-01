@@ -386,18 +386,28 @@ pre {
         width: 80vw;
     }
 
-    #postTitle {
-        align-self: center;
-        margin-left: -2vw;
-        padding-left: 0;
-    }
-
     #mobileTopBar {
         display: flex;
     }
 
+    #postTitle {
+        border-bottom: 1px solid grey;
+        text-align: center;
+        width: 89%;
+        font-size: 1.9em;
+        margin-left: 5vw;
+    }
+
+    #postText {
+        max-width: 95%;
+        padding-left: 3vw;
+        padding-right: 3vw;
+    }
+
     .seperator {
         width: 90%;
+        border: 0;
+        display: none;
     }
 
     .result {

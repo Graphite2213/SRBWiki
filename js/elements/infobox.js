@@ -34,6 +34,8 @@ class InfoboxMain extends LitElement {
 		flex-direction: column;
 		font-weight: bold;
 		height: fit-content;
+		width: 25.5em;
+		align-items: center;
 	}
     
 	.infobox {
@@ -61,6 +63,21 @@ class InfoboxMain extends LitElement {
 	.infoTitle {
 		margin-bottom: -5px;
 		margin-left: 1vw;
+	}
+
+	@media (max-width:641px)  {
+		.infoboxWrapper {
+			clear: none;
+			float: none;
+			width: 95%;
+        	margin-left: auto;
+        	margin-right: auto;
+			align-items: center;
+		}
+
+		.infoTitle {
+			margin-left: 5vw;
+		}
 	}
   	`;  
 

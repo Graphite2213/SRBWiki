@@ -42,6 +42,7 @@ class WikiImage extends LitElement {
 
 	img {
 		width: 15vw;
+		min-width: 250px;
     	height: auto;
     	padding: 2px;
     	background-color: #e6e6e6;
@@ -50,6 +51,20 @@ class WikiImage extends LitElement {
 	figcaption {
 		background-color: #e6e6e6;
     	padding: 5px;
+	}
+
+	@media (max-width:641px)  {
+		figure {
+			float: none;
+    		clear: none;
+			margin-right: auto;
+			margin-left: auto;
+		}
+
+		img {
+			width: 65vw;
+			min-width: 0;
+		}
 	}
 
   	`;
@@ -231,6 +246,23 @@ class Annotation extends LitElement {
 		.annoImg {	
 			width: 75px;
 			height: auto;
+		}
+
+		@media (max-width:641px)  {
+			.annotationDef {
+				width: 90%;
+				margin-left: 3vw;
+			}
+
+			.annotationDanger {
+				width: 90%;
+				margin-left: 3vw;
+			}
+
+			.annotationWarn {
+				width: 90%;
+				margin-left: 3vw;
+			}
 		}
 	`
 	

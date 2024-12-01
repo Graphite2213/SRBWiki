@@ -13,7 +13,8 @@ let pageTitle;
 let locale;
 let oppLocale;
 let theme;
-let barToClearNote = true;
+let refHighlight;
+let barToClearNote = false;
 let showingDropdown = false;
 
 // Initialize sitewide variables (used in shadow DOM too)
@@ -59,7 +60,7 @@ function LoadSidebar()
         setTimeout(() => {
             let allTitles = `<li><b>(Top)</b></li>`;
             window._titles.forEach(e => {
-                allTitles += `<li><a class="contentListChild" onclick="scrollHeaderIntoView(event)">${e}</a></li>`;
+                allTitles += `<li><a class="contentListChild" onclick="ScrollHeaderIntoView(event)">${e}</a></li>`;
             });
             document.getElementById("pageContent").innerHTML = allTitles;
         }, 50);
@@ -86,15 +87,23 @@ function LoadSidebar()
 }
 
 // Because shadow DOM doesn't support # links, we have to scroll headers into view using this.
-// TODO: Make this work with id and then add the ability to up-scroll to references too
+// ~~TODO: Make this work with id and then add the ability to up-scroll to references too~~ DONE!
 function ScrollHeaderIntoView(e)
 {
     const allElems = document.getElementById("postText").getElementsByTagName("w-h1");
 
     for (let i = 0; i < allElems.length; i++)
     {
-        if (allElems[i].innerHTML == e.target.innerText) allElems[i].scrollIntoView();
+        if (allElems[i].innerHTML == e.target.innerText) allElems[i].scrollIntoView({ behavior: "smooth" });
     }
+}
+
+function ScrollRefIntoView(e)
+{
+    document.getElementById("postText").getElementsByTagName("w-reflist")[0].shadowRoot.getElementById("ref_link_" + e.target.dataset.ref_number).scrollIntoView({ behavior: "smooth" })
+    document.getElementById("postText").getElementsByTagName("w-reflist")[0].shadowRoot.getElementById("ref_link_" + e.target.dataset.ref_number).style.backgroundColor = "#f1f4fd";
+    if (typeof refHighlight != "undefined") refHighlight.style.backgroundColor = "transparent";
+    refHighlight = document.getElementById("postText").getElementsByTagName("w-reflist")[0].shadowRoot.getElementById("ref_link_" + e.target.dataset.ref_number);
 }
 
 // All internal links go through this function
