@@ -155,10 +155,10 @@ class WikiLink extends LitElement {
 			this.caption = elem[0];
 			if (!validator.isURL(this.url)) {
 				this.external = false;
-				this._exists = !window._searchMeta.pages.includes(elem[0]) ? " nonExistent" : "";
-    			this.url = `${selfURL}/${locale}/wiki?page=` + encodeURI(elem[0]);
+				this._exists = !window._searchMeta.pages.includes(this.url) ? " nonExistent" : "";
+    			this.url = `${selfURL}/${locale}/wiki?page=` + encodeURI(this.url);
 			}
-			else if (elem[1].includes("wikipedia.org")) 
+			else if (this.url.includes("wikipedia.org")) 
 			{
 				this.external = false;
 				this._exists = true;
