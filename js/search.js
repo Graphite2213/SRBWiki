@@ -8,6 +8,11 @@ function OnSearch(e)
     const add = [];
     let last = "";
     const currTheme = CookieManager.GetCookie("theme");
+    if (currTheme == '') 
+    {
+        CookieManager.SetCookie("theme", "light");
+        currTheme = "light";
+    }
     const isBlack = (currTheme == "light") ? "" : "srDarkTheme";
     window._searchMeta.pages.forEach(key => {
         if (!key.toLowerCase().includes(query.toLowerCase())) return;
