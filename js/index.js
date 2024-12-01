@@ -31,7 +31,7 @@ function OnLoad(l) {
     if (locale == 'en') oppLocale = 'rs';
     else oppLocale = 'en';
     GetSearchMeta().then(() => {
-        if (currentPage == "wiki.html") LoadPost();
+        if (currentPage == "wiki") LoadPost();
     });
 
     document.getElementById("reftooltip").addEventListener("mouseover", HoverRefBox);
@@ -55,7 +55,7 @@ async function GetSearchMeta()
 function LoadSidebar()
 {
     // For the "wiki" part of the wiki (pages n stuff) load the content, otherwise load the featured articles
-    if (currentPage == "wiki.html")
+    if (currentPage == "wiki")
     {
         setTimeout(() => {
             let allTitles = `<li><b>(Top)</b></li>`;
@@ -65,7 +65,7 @@ function LoadSidebar()
             document.getElementById("pageContent").innerHTML = allTitles;
         }, 50);
     }
-    if (currentPage == "home.html")
+    if (currentPage == "home")
     {
         const featured = window._searchMeta.featured;
         const news = window._searchMeta.news;
@@ -110,7 +110,7 @@ function ScrollRefIntoView(e)
 async function InternalLink(e)
 {
     const newPage = encodeURI(e.target.getAttribute("data-href"));
-    window.location.replace(`${selfURL}/${locale}/wiki.html?page=` + newPage);
+    window.location.replace(`${selfURL}/${locale}/wiki?page=` + newPage);
 }
 
 

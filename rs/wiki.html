@@ -32,7 +32,7 @@
 <body onload="OnLoad('rs')">
     <div id="mainLayout">
         <div id="sidebar">
-            <a href="./home.html"><img id="logo" src="../images/logo.png"></a>
+            <a href="./home"><img id="logo" src="../images/logo.png"></a>
             <div id="searchwrapper">
                 <input id="searchbar" autocomplete="off" placeholder="Pretraži SNSWiki" oninput="OnSearch(event)"/>
                 <div id="searchresults">
@@ -47,7 +47,7 @@
                 <a class="sidebarLink" id="otherLanguage" href="../en/">English version of this page</a><br>
                 <br>
                 <a class="sidebarLink" id="editPageLink" href="">Uređuj ovu stranicu</a><br>
-                <a class="sidebarLink" href="editor.html">Otvori editor</a>
+                <a class="sidebarLink" href="editor">Otvori editor</a>
                 <br>
                 <div class="contentsContainer">
                     <b>Sadržaj:</b><br>
@@ -60,7 +60,7 @@
         </div>
         <div id="mainArea">
             <div id="mobileTopBar">
-                <a href="./home.html"><img src="../images/logo.png" style="height: 25px; width: auto; margin-left: 10px;"></a>
+                <a href="./home"><img src="../images/logo.png" style="height: 25px; width: auto; margin-left: 10px;"></a>
                 <div id="burgerMenu" onclick="toggleMobileDropdown()"></div>
             </div>
             <div id="mobileDropdown">
@@ -73,7 +73,7 @@
                 <div class="dropdown"><a class="topbarLink" href="https://ko-fi.com/graphite2213">Podržite razvoj SNSWiki</a><br></div>
                 <div class="dropdown"><a onclick="SwitchToDark()" class="topbarLink" id="themeSwitch">Tamna tema</a><br></div>
                 <div class="dropdown"><a class="topbarLink" id="editPageLinkMobile" href="">Uređuj ovu stranicu</a></div><br>
-                <div class="dropdown"><a class="topbarLink" href="editor.html">Otvori editor</a><br></div>
+                <div class="dropdown"><a class="topbarLink" href="editor">Otvori editor</a><br></div>
                 <div class="dropdown"><a class="topbarLink" id="otherLanguageMobile" href="">English version of this page</a><br></div>
             </div>
             <div id="postTitle"></div>
