@@ -66,7 +66,7 @@ async function LoadPost()
     }
     else
     {
-        document.getElementById(properOtherLanguage).href = selfURL + `/${oppLocale}/wiki.html?page=${metaBody.link}`;
+        document.getElementById(properOtherLanguage).href = selfURL + `/${oppLocale}/wiki?page=${metaBody.link}`;
     }
 
     // Load sidebar a second time, because of possible bad timing with network
