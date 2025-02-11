@@ -29,7 +29,7 @@ let editorInstance;
 window._userData = {};
 window._titles = [];
 window._searchData = "";
-window._backendWorker = `http://127.0.0.1:8787`;
+window._backendWorker = `https://bolognese.graphite2264.workers.dev`;
 window._pageExists = true;
 window._editingNews = false;
 window._editingFeatured = false;
