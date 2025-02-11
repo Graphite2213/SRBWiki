@@ -1,0 +1,31 @@
+#homeTiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1vw;
+    font-size: 1.15em;
+}
+
+#textTile {
+    border: 1px grey solid;
+    background-color: var(--infobox-bg);
+    min-height: 15vh;
+    width: 72vw;
+    padding: 10px;
+}
+
+#featuredTile {
+    border: 1px grey solid;
+    background-color: var(--infobox-bg);
+    min-height: 45vh;
+    width: 35vw;
+    padding: 10px;
+}
+
+#newsTile {
+    border: 1px grey solid;
+    background-color: var(--infobox-bg);
+    min-height: 45vh;
+    width: 35vw;
+    padding: 10px;
+}

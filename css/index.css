@@ -3,6 +3,12 @@
     src: url(../../font/LinLibertine_RZ.ttf);
 }
 
+input, select {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 input:focus
 {
     border: 2px #36c solid;
@@ -29,36 +35,6 @@ html, body {
     font-family: sans-serif;
 }
 
-a {
-    cursor: pointer;
-    color: #36c;
-    text-decoration: none;
-}
-
-pre {
-    font-family: inherit;
-    text-wrap: wrap;
-    color: inherit;
-}
-
-:hover {
-    text-decoration: underline;
-    color: #447ff5;
-}
-
-:active {
-    color: #0b0080;
-}
-
-:visited {
-    color: #6b4ba1;
-}
-
-.sidebarLink:hover {
-    color: #447ff5;
-    text-decoration: underline;
-}
-
 .seperator {
     width: 95%;
     height: 1px;
@@ -73,11 +49,12 @@ pre {
     height: fit-content;
     align-items: stretch;
 }
+
 /* Sidebar area */
 #sidebar {
     width: 15%;
     height: auto;
-    background-color: #e8e8e8;
+    background-color: var(--infobox-bg);
     border-right: 1px grey solid;
     display: flex;
     flex-direction: column;
@@ -90,6 +67,8 @@ pre {
     margin-bottom: 2vh;
     width: 7vw;
     height: auto;
+    border: 1px solid grey;
+    border-radius: 100%;
 }
 
 #searchbar {
@@ -110,29 +89,12 @@ pre {
     font-size: 1.1em;
 }
 
-#featuredArticles {
-    list-style-type: disc;
-    font-size: 1em;
-}
-
-.sidebarLink {
-    cursor: pointer;
-}
-
-.sidebarLink:visited {
-    color: #36c;
-}
-
-.followMode {
-    color: black;
-}
-
 /* Main post area */
 #mainArea {
     width: 85%;
     height: fit-content;
     min-height: 100vh;
-    background-color: #fafafa;
+    background-color: var(--page-bg);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -161,7 +123,7 @@ pre {
 #reftooltip {
     position: absolute;
     padding: .5%;
-    background-color: white;
+    background-color: var(--page-bg);
     border-radius: 1px;
     border: 1px solid black;
     box-shadow: 2px 2px 2px rgba(12, 12, 12, 0.651);
@@ -246,125 +208,23 @@ pre {
 
 .missingText {
     border: 1px grey solid;
-    background-color: #e8e8e8;
+    background-color: var(--infobox-bg);
     font-size: 1.15em;
     padding: 10px;
 }
 
-#homeTiles {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1vw;
-    font-size: 1.15em;
+.sidebarText {
+    color: var(--text-color);
+    cursor: default;
 }
 
-#textTile {
-    border: 1px grey solid;
-    background-color: #e8e8e8;
-    min-height: 15vh;
-    width: 72vw;
-    padding: 10px;
-}
-
-#featuredTile {
-    border: 1px grey solid;
-    background-color: #e8e8e8;
-    min-height: 45vh;
-    width: 35vw;
-    padding: 10px;
-}
-
-#newsTile {
-    border: 1px grey solid;
-    background-color: #e8e8e8;
-    min-height: 45vh;
-    width: 35vw;
-    padding: 10px;
-}
-
-#mobileTopBar {
-    width: 100%;
-    height: 5vh;
-    background-color: #e8e8e8;
-    display: flex;
-    border-bottom: 1px grey solid;
-    align-items: center;
-    display: none;
-}
-
-#burgerMenu {
-    background-image: url("https://www.svgrepo.com/show/506800/burger-menu.svg");
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 25px;
-    height: 25px;
-    margin-left: auto;
-    margin-right: 25px;
-    border: 1px transparent solid;
-}
-
-#burgerMenu:hover {
-    border: 1px grey solid;
-}
-
-#burgerMenu:active {
-    border: 1px grey solid;
-}
-
-#mobileDropdown {
-    display: flex;
-    width: 105%;
-    height: fit-content;
-    flex-direction: column;
-    border-bottom: 1px solid grey;
-    display: none;
-    align-items: center;
-}
-
-.dropdown {
-    height: 5vh;
-    width: 97.5%;
-    background-color: #e8e8e8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent;
-}
-
-.dropdown:hover {
-    border-bottom: 1px grey solid;
-    border-top: 1px grey solid;
-    cursor: pointer;
-}
-
-.search {
-    min-height: 5vh;
-    flex-direction: column;
-    height: fit-content;
-}
-
-.search:hover {
-    border-top: 1px solid transparent;
-    border-bottom: 1px solid transparent;
-}
-
-.topbarLink {
-    color: inherit;
-}
-
-.topbarLink:hover {
+.sidebarText:hover, .sidebarText:visited {
+    color: var(--text-color);
+    cursor: default;
     text-decoration: none;
 }
 
-#searchbarMobile {
-    width: 95%;
-    height: 4vh;
-}
-
-@media (max-width:641px)  {
+@media (max-width: 780px)  {
     #mainArea {
         width: 100%;
     }

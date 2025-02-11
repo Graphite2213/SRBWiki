@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SRBWiki - Home page</title>
+    <title>SRBWiki - Sandbox</title>
     
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,14 +24,15 @@
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/wiki.css">
     <link rel="stylesheet" href="../css/editor.css">
-    <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/editor-min.css">
+    <link rel="stylesheet" href="../css/sandbox.css">
     <link rel="stylesheet" href="../css/mobile.css">
     <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.4/ace.js" integrity="sha512-llC5e4MUoX59KrDpxBq/dm222f/DeDqm+UZ2StNkJn9gGshG/wWrziC9a6mOfGc/FQCYrgro/p7Xq47c0QA4FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
 </head>
 
-<body onload="OnLoad('en')">
+<body onload="OnLoad('en');">
     <div id="mainLayout">
         <div id="confirmationBackdrop">
             <div id="confirmationPrompt">
@@ -79,82 +80,64 @@
                 </div>
             </div>
             <div class="seperator"></div>
-            <div id="featured"><p id="featuredText">
-                <a id="loginSidebar" class="sidebarLink" onclick="LoginWithGithub()">Log in with GitHub</a>
-                <a id="logoutLink" class="sidebarLink" onclick="LogoutWithGithub()">Log out</a>
-                <br>
-                <a class="sidebarLink" href="https://github.com/Graphite2213/SNSWiki/blob/master/docs/EDITING-EN.md">Help maintain SRBWiki</a>
-                <a class="sidebarLink" href="https://ko-fi.com/graphite2213">Support the development of SRBWiki</a>
-                <br>
-                <a onclick="ThemeToggle()" class="sidebarLink" id="themeSwitch">Dark theme</a>
-                <a class="sidebarLink" href="sandbox">Sandbox</a>
-                <br>
-                <a class="sidebarLink" id="otherLanguage" href="../rs/home">Srpska verzija ove stranice</a>
-            </p></div>
+            <div id="featured">
+                <p id="featuredText">
+                    <a id="loginSidebar" class="sidebarLink" onclick="LoginWithGithub()">Log in with GitHub</a>
+                    <a id="logoutLink" class="sidebarLink" onclick="LogoutWithGithub()">Log out</a>
+                    <br>
+                    <a class="sidebarLink" href="https://github.com/Graphite2213/SNSWiki/blob/master/docs/EDITING-EN.md" target="_blank">Help maintain SRBWiki</a>
+                    <a class="sidebarLink" href="https://ko-fi.com/graphite2213" target="_blank">Support the development of SRBWiki</a>
+                    <a class="sidebarLink" href="https://discord.com/invite/5tHKPFe8KN" target="_blank">SRBWiki Discord community</a>
+                    <br>
+                    <a onclick="ThemeToggle()" class="sidebarLink" id="themeSwitch">Dark theme</a>
+                    <a class="sidebarLink" id="otherLanguage" href="../rs/editor">Srpska verzija ove stranice</a>
+                </p>
+            </div>
             <div class="seperator" style="margin-top: auto;"></div>
             <div style="margin-bottom: 10px;"><i>Graphite 2024-2025. ❤️</i></div>
         </div>
         <div id="mainArea">
-            <div id="mobileTopBar" >
-                <a href="./home"><img src="../images/logo.png" style="height: 25px; width: auto; margin-left: 10px;"></a>
+            <div id="mobileTopBar">
+                <a href="./home"><img src="../images/logo.png" id="mobileTopbarLogo"></a>
                 <div id="burgerMenu" onclick="ToggleMobileDropdown()"></div>
             </div>
             <div id="mobileDropdown">
                 <div class="dropdown search">
                     <input id="searchbarMobile" autocomplete="off" placeholder="Search SRBWiki" oninput="OnSearch(event)"/>
                     <div id="resultsMobile">
+                    </div>
                 </div>
-            </div>
                 <div class="dropdown"><a class="topbarLink" href="https://github.com/Graphite2213/SNSWiki/blob/master/docs/EDITING-EN.md">Help maintain SRBWiki</a></div>
                 <div class="dropdown"><a class="topbarLink" href="https://ko-fi.com/graphite2213">Support the development of SRBWiki</a></div>
-                <div class="dropdown"><a onclick="ThemeToggle()" class="topbarLink" id="themeSwitchMobile">Dark theme</a></div>
-                <div class="dropdown"><a class="topbarLink" href="sandbox">Sandbox</a></div>
+                <div class="dropdown"><a class="topbarLink" href="https://discord.com/invite/5tHKPFe8KN" target="_blank">SRBWiki Discord community</a></div>
+                <div class="dropdown"><a class="topbarLink" onclick="ThemeToggle()" id="themeSwitchMobile">Dark theme</a></div>
                 <div class="dropdown"><a class="topbarLink" id="otherLanguageMobile" href="">Srpska verzija ove stranice</a></div>
             </div>
-            <div id="postTitle">Welcome to SRBWiki!</div>
+            <div id="postTitle">Special:Sandbox</div>
             <div class="seperator"></div>
             <div id="postText">
-                <div id="homeTiles">
-                    <div id="textTile" >
-                        Welcome to SRBWiki! This is a project intended to document, archive and spread the word about controversies, incidents and other tragic events directly caused by the government's incompetence.
-                        <br>
-                        Of course this site isn't exclusive to SNS-caused events but considering they were the only ones that got a chance to ruin Serbia in the past 12 years, this site was named accordingly.
-                        <br>
-                        If you are interested in contributing you can edit and create new articles, a guide to help you with that is located <a href="https://github.com/Graphite2213/SNSWiki/blob/master/docs/EDITING-EN.md">here</a>.
-                    </div>
-                    <div id="featuredTile" >
-                        Featured articles:<sup style="font-size: small;"><a onclick="_editingFeatured = true; EditFeaturedTile()"> [edit]</a></sup>
-                        <ul style="list-style-type: '- '; padding-left: 25px;" id="featuredList">
-
-                        </ul>
-                    </div>
-                    <div id="newsTile" >
-                        In the news: <sup style="font-size: small;"><a onclick="_editingNews = true; EditNewsTile()"> [edit]</a></sup>
-                        <ul style="list-style-type: '- '; padding-left: 25px;" id="newsList">
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="editorWrapper" style="display: none;">
-                <div id="toolbar">
-                    <div onclick="boldTool()" class="toolWrapper" style="margin-left: 10px;" title="Bold"><div class="tool" id="boldTool"></div></div> 
-                    <div onclick="italicTool()" class="toolWrapper"><div class="tool" id="italicTool" title="Italic"></div></div> 
-                    <div onclick="linkTool()" class="toolWrapper"><div class="tool" id="linkTool" title="Ubaci link u članak"></div></div>
-                    <div onclick="imageTool()" class="toolWrapper"><div class="tool" id="imageTool" title="Ubaci sliku u članak"></div></div>
+                <div id="toolbar" >
+                    <div onclick="boldTool()" class="toolWrapper" style="margin-left: 10px;"><div class="tool" id="boldTool"></div></div> 
+                    <div onclick="italicTool()" class="toolWrapper"><div class="tool" id="italicTool"></div></div> 
+                    <div onclick="linkTool()" class="toolWrapper"><div class="tool" id="linkTool"></div></div>
+                    <div onclick="imageTool()" class="toolWrapper"><div class="tool" id="imageTool"></div></div>
                     <div onclick="preRefTool()" class="toolWrapper"><div class="tool" id="refTool"></div></div>
-                    <div onclick="highlightToggle()" class="toolWrapper tWActive"><div class="tool" id="highlightToggle" title="Hajlajtovanje izvornog koda"></div></div>
-                    <div onclick="wrapToggle()" class="toolWrapper tWActive"><div class="tool" id="wrapToggle" title="Prekidanje redova"></div></div>
+                    <div onclick="highlightToggle()" class="toolWrapper"><div class="tool tWActive" id="highlightToggle"></div></div>
+                    <div onclick="wrapToggle()" class="toolWrapper"><div class="tool tWActive" id="wrapToggle"></div></div>
                     <div class="toolbarSeparator"><span id="nonce"></span></div>
                     <div onclick="undoEditor()" class="toolWrapper"><div class="tool" id="undo"></div></div>
                     <div onclick="redoEditor()" class="toolWrapper"><div class="tool" id="redo"></div></div>
-                    
-                    <div onclick="PreBackToRead()" id="backButtonWrapper" class="toolWrapper textWrapper pusher" title="Vrati se na stranicu"><div class="tool textTool" id="backButton">Back</div></div>
-                    <div onclick="PrePreviewEdit()" id="previewWrap" class="toolWrapper textWrapper"><div class="tool textTool" id="previewButton">Preview</div></div>
-                    <div onclick="PrePublish()" id="publishWrap" class="toolWrapper textWrapper"><div class="tool textTool" id="publishButton">Publish</div></div>
+
+                    <div onclick="PreDeleteDraft()" class="toolWrapper minusDraft"><div class="tool" id="deleteDraft"></div></div>
+                    <div onclick="AddDraft()" class="toolWrapper plusDraft"><div class="tool" id="addDraft"></div></div>
+                    <div class="toolWrapper selectDraft" id="draftDropWrapper">
+                        <select id="draftDropdown" onchange="LoadFromList()">
+                        </select>
+                    </div>
+                    <div onclick="PreviewEdit()" class="toolWrapper textWrapper" style="margin-left: 0;"><div class="tool textTool" id="previewButton" style="font-weight: bold;"><span id="previewIcon"></span>Preview</div></div>
                 </div>
                 <div id="loginPrompt">
-                    <button id="loginWithGH" onclick="LoginWithGithub()"><img style="filter: invert(1); margin-right: 10px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png" width="25px" height="auto" />Log in with GitHub</button>
+                    <button id="loginWithGH" onclick="LoginWithGithub()"><img style="filter: invert(1); margin-right: 10px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png" width="25px" height="auto" />Ulogujte se sa GitHub-om</button>
                     <img id="loadingGif" src="https://i.gifer.com/ZKZg.gif"/>
                 </div>
                 <div id="editorInput"></div>

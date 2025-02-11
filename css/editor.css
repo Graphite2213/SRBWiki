@@ -5,15 +5,11 @@
     min-width: 95%;
 }
 
-#editorOutput {
-    width: 95%;
-}
-
 #toolbar {
     height: 4vh;
     width: 80vw;
     border: 1px solid grey;
-    background-color: #e6e6e6;
+    background-color: var(--infobox-bg);
 
     display: flex;
     flex-wrap: nowrap;
@@ -29,17 +25,6 @@
     border-top: 0;
 }
 
-.annotation {
-    width: fit-content;
-    margin-bottom: 1vh;
-    background-color: #e6e6e6;
-    border-left: 10px solid #eb7175;
-    border-right: 1px solid grey;
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
-    padding: 5px;
-}
-
 .tool {
     width: 20px;
     height: 30px;
@@ -48,6 +33,9 @@
     background-position: center center;
     background-repeat: no-repeat;
     filter: contrast(0.2);
+
+    display: flex;
+    align-items: center;
 }
 
 .toolWrapper {
@@ -65,27 +53,8 @@
     border: 1px grey solid;
 }
 
-.toolWrapper:hover .tool {
-    filter: contrast(1);
-}
-
-.toolWrapper:hover .darkModif {
-    filter: invert(100%) contrast(1);
-}
-
-.previewWrapper {
-    width: fit-content;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-right: 10px;
-}
-
-.previewWrapper:hover #previewButton {
-    color: black;
-}
-
-.previewWrapper:hover #previewIcon {
-    background-color: rgba(230,230,230,0);
+.tWActive {
+    filter: var(--toolbar-item-filter);
 }
 
 #boldTool {
@@ -108,6 +77,10 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E%3Ctitle%3E highlight %3C/title%3E%3Cpath d=%22M15.14 2.27a1 1 0 0 0-1.41 0l-10 10a1 1 0 0 0 0 1.41L4 14l-3 4h5l1-1 .29.29a1 1 0 0 0 1.41 0l10-10a1 1 0 0 0 .03-1.43zM7 15l-2-2 9-9 2 2z%22/%3E%3C/svg%3E");
 }
 
+#refTool {
+    background-image: url("https://www.svgrepo.com/show/361280/references.svg");
+}
+
 #wrapToggle {
     background-image: url("https://www.svgrepo.com/show/361405/word-wrap.svg");
 }
@@ -126,9 +99,10 @@
 
 #previewButton {
     width: fit-content;
-    line-height: 2;
     display: flex;
-    color: rgba(0, 0, 0, 0.8);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #addDraft {
@@ -179,6 +153,10 @@
     border-right: 1px solid grey;
 }
 
+.textTool {
+    width: fit-content;
+}
+
 #confirmationBackdrop {
     position: absolute;
     left: 50%;
@@ -197,53 +175,76 @@
     justify-content: space-around;
     align-items: center;
     display: flex;
+    margin: auto;
+    top: 45%;
     left: 50%;
-    top: 40%;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, -50%);
     min-width: 30vw;
-    height: 10vh;
-    background-color: white;
+    height: fit-content;
+    background-color: var(--page-bg);
     padding: 15px;
-    border: 1px black solid;
+    border: 1px grey solid;
 }
 
-#delete {
-    background-color: #eb7175;
-    box-shadow: 0;
-    border: 1px solid grey;
-    padding: 10px;
-    font-weight: bold;
-    margin-left: 20px;
-    width: 5vw;
+#configEditor {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vh;
 }
 
-#cancel {
-    background-color: #e6e6e6;
-    box-shadow: 0;
-    border: 1px solid grey;
-    padding: 10px;
-    font-weight: bold;
-    margin-left: 20px;
-    width: 5vw;
+.configField {
+    display: flex;
+    justify-content: space-between;
+    gap: 4vw;
+    align-items: center;
 }
 
-#cancel:hover {
-    background-color: #bfbdbd;
-    cursor: pointer;
+#modButtons {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
 }
 
-#delete:hover {
-    background-color: #ed4046;
-    cursor: pointer;
+#userInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    width: fit-content;
+    min-width: 30%;
 }
 
-@media (max-width:641px)  {
+#userEditor {
+    display: flex;
+    gap: 2vw;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+}
+
+#filenameWrapper {
+    display: none;
+}
+
+@media (max-width: 780px)  {
+
+    #confirmationPrompt {
+        min-width: 90vw;
+    }
+
     #editorInput {
         width: 98%;
     }
 
     #toolbar {
         width: 98%;
+    }
+
+    #historyInfo {
+        max-width: 85vw;
     }
 
     .annotation {

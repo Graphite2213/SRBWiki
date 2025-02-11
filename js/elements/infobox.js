@@ -43,8 +43,8 @@ class InfoboxMain extends LitElement {
 		float: right;
 		border: 1px solid gray;
 		border-spacing: 3px;
-		background-color: #e6e6e6;
-		color: black;
+		background-color: var(--infobox-bg);
+		color: var(--text-color);
 		margin: 0.5em 0 0.5em 1em;
 		padding: 0.2em;
 		font-size: 85%;
@@ -65,7 +65,7 @@ class InfoboxMain extends LitElement {
 		margin-left: 1vw;
 	}
 
-	@media (max-width:641px)  {
+	@media (max-width:780px)  {
 		.infoboxWrapper {
 			clear: none;
 			float: none;
@@ -82,7 +82,7 @@ class InfoboxMain extends LitElement {
   	`;  
 
     render() {
-        return html`<div class="infoboxWrapper followModeInfobox">
+        return html`<div class="infoboxWrapper">
 			<span class="infoTitle">${this.title}</span>
 			<div class="infobox">
             	<slot></slot>
@@ -145,7 +145,7 @@ class InfoboxSection extends LitElement
 	static styles = css`
 	.infoboxHeader {
 		text-align: center;
-		background: #bfbff5;
+		background: var(--infobox-header);
 	}
 	`;
 

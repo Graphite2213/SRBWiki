@@ -1,0 +1,244 @@
+let logPages = [[], []];
+let usedPages = [[], []];
+const maxLogsPerPage = 25;
+let currentLogPage = 1;
+let lastLogPage = 1;
+
+const pageCreateTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je stvorio stranicu <b><a href="${selfURL}/wiki?page=:page:">:page:</a> (:locale:)</b>`;
+const imageAddTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je dodao sliku <b>:page:</b> na stranicu <b><a href="${selfURL}/wiki?page=:page:">:page:</a> (:locale:)</b>`;
+const pageRemoveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio stranicu <b>:page: (:locale:)</b>. Razlog: :reason:`;
+const imageRemoveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio sliku <b>:filename:</b> na stranici <b><a href="${selfURL}/wiki?page=:page:">:page:</a> (:locale:)</b>. Razlog: :reason:`;
+const approvalTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>`;
+const escalationTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je digao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> u rang Administratora`;
+const higherEscalationTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je digao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> u rang Višeg Administratora`;
+const deapprovalTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je od-potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
+const patosTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je spustio rang korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
+const banTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je banovao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
+const moveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je pomerio stranicu <b>:page:</b> na <b>:page2:</b> <b>(:locale:)</b>.`;
+
+class LogEntry {
+    htmlText = "";
+    rawText = "";
+
+    constructor(htmlText, rawText)
+    {
+        this.htmlText = htmlText;
+        this.rawText = rawText;
+    }
+}
+
+async function PopulateLog()
+{
+    const data = fetch(fetchURL + "dev.log");
+    const parsedData = (await ((await data).text())).split("\n");
+    let l_counter = 0;
+    let l_page = 1;
+    logPages = [[], []];
+
+    for (const x of parsedData)
+    {
+        if (x == "") continue;
+        const user = x.split(" ")[0];
+        const intent = x.split(" ")[1];
+        const target = x.split(" ")[2];
+        // [3] and [5] is always filler
+        const cet = x.split(" ")[4];
+        console.log(cet);
+        let finalElement = "";
+
+        switch (intent)
+        {
+            case 'ADD_IMAGE':
+                finalElement = imageAddTemplate.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":filename:", target);
+                finalElement = finalElement.replaceAll(":page:", decodeURIComponent(cet.split("/")[1]));
+                finalElement = finalElement.replaceAll(":locale:",  cet.split("/")[0]);
+                break;
+
+            case 'ADD_PAGE':
+                finalElement = pageCreateTemplate.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":page:", decodeURIComponent(target.split("/")[1]));
+                finalElement = finalElement.replaceAll(":locale:", target.split("/")[0]);
+                break;
+
+            case 'DELETE_IMAGE':
+                finalElement = imageRemoveTemplate.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":filename:", target);
+                finalElement = finalElement.replaceAll(":page:", decodeURIComponent(cet.split("/")[1]));
+                finalElement = finalElement.replaceAll(":locale:", cet.split("/")[0]);
+                finalElement = finalElement.replaceAll(":reason:", decodeURIComponent(decodeURIComponent(x.split(" ")[6])));
+                break;
+
+            case 'DELETE_PAGE':
+                finalElement = pageRemoveTemplate.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":page:", decodeURIComponent(target.split("/")[1]));
+                finalElement = finalElement.replaceAll(":locale:",  target.split("/")[0]);
+                finalElement = finalElement.replaceAll(":reason:", decodeURIComponent(cet));
+                break;
+
+            case 'APPROVE':
+                finalElement = approvalTemplate.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":subject:", target);
+                break;
+            
+            case 'PROMOTE_ADMIN':
+                finalElement = escalationTemplate.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":subject:", target);
+                break;
+
+            case 'PROMOTE_HIGHER_ADMIN':
+                finalElement = higherEscalationTemplate.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":subject:", target);
+                break;
+
+            case 'DEAPPROVE':
+                finalElement = deapprovalTemplate.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":subject:", target);
+                finalElement = finalElement.replaceAll(":reason:", decodeURIComponent(cet));
+                break;
+
+            case 'DEFAULT':
+                finalElement = patos.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":subject:", target);
+                finalElement = finalElement.replaceAll(":reason:", decodeURIComponent(cet));
+                break;
+
+            case 'BAN':
+                finalElement = banTemplate.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":subject:", target);
+                finalElement = finalElement.replaceAll(":reason:", decodeURIComponent(cet));
+                break;
+
+            case 'MOVE':
+                finalElement = moveTemplate.replaceAll(":user:", user);
+                finalElement = finalElement.replaceAll(":page:", decodeURIComponent(target.split("/")[1]));
+                finalElement = finalElement.replaceAll(":page2:", decodeURIComponent(cet.split("/")[1]));
+                finalElement = finalElement.replaceAll(":locale:",  target.split("/")[0]);
+
+            default:
+                console.warn("W: Weird log output. Check logs manually?");
+                break;
+        }
+
+        logPages[l_page].unshift(new LogEntry(" " + `<div class="logEntry"><span>${finalElement}</span><span style="font-size: 75%; opacity: 70%;">${x.split("TIME ")[1]}</span></div>`, x));
+        l_counter++;
+        if (l_counter >= maxLogsPerPage)
+        {
+            l_page++;
+            logPages[l_page] = [];
+        }
+    }
+    document.getElementById('logPageTot').innerText = l_page;
+    lastLogPage = l_page;
+    usedPages = logPages;
+    OpenPage(1);
+}
+
+function NextLogPage()
+{
+    if (currentLogPage >= lastLogPage) return;
+    currentLogPage++;
+    OpenPage(currentLogPage);
+    document.getElementById('logPage').innerText = currentLogPage;
+}
+
+function PrevLogPage()
+{
+    if (currentLogPage <= 1) return;
+    currentLogPage--;
+    OpenPage(currentLogPage);
+    document.getElementById('logPage').innerText = currentLogPage;
+}
+
+function OpenPage(num)
+{
+    let str = ``;
+
+    for (const x of usedPages[num])
+    {
+        str = x.htmlText + " " + str;
+    }
+
+    document.getElementById("logList").innerHTML = str;
+}
+
+function FilterLogs()
+{
+    let newPages = [[], []];
+    let counter = 0;
+    let pageCounter = 1;
+    const actionFilter = document.getElementById("filters").children[0];
+    const localeFilter = document.getElementById("filters").children[1];
+
+    const userFilter = document.getElementById("filters").children[2];
+    const targetFilter = document.getElementById("filters").children[2];
+
+    const selectedOptionAct = Array.from(actionFilter.children).indexOf(actionFilter.selectedOptions[0]);
+    const selectedOptionLoc = Array.from(localeFilter.children).indexOf(localeFilter.selectedOptions[0]);
+
+    const allActions = ["", "ADD_PAGE", "ADD_IMAGE", "DELETE_PAGE", "DELETE_IMAGE", "APPROVE", "PROMOTE_ADMIN", "PROMOTE_HIGHER_ADMIN", "DEAPPROVE", "DEFAULT", "BAN", "MOVE"];
+    const allLocaleMatch = ["", "(rs)", "(en)"];
+    for (const i of logPages)
+    {
+        for (const j of i)
+        {
+            // Action filter
+            if (selectedOptionAct != 0 && j.rawText.split(" ")[1] == allActions[selectedOptionAct])
+            {
+                newPages[pageCounter].unshift(j);
+                counter++;
+                if (counter >= maxLogsPerPage)
+                {
+                    pageCounter++;
+                    newPages[pageCounter] = [];
+                }
+            }
+
+            console.log(j.htmlText, allLocaleMatch[selectedOptionLoc])
+            // Locale filter
+            if (selectedOptionLoc != 0 && j.htmlText.includes(`${allLocaleMatch[selectedOptionLoc]}`))
+            {
+                newPages[pageCounter].unshift(j);
+                counter++;
+                if (counter >= maxLogsPerPage)
+                {
+                    pageCounter++;
+                    newPages[pageCounter] = [];
+                }
+            }
+
+            // User filter
+            if (userFilter.value != "" && j.rawText.split(" ")[0] == userFilter.value)
+            {
+                newPages[pageCounter].unshift(j);
+                counter++;
+                if (counter >= maxLogsPerPage)
+                {
+                    pageCounter++;
+                    newPages[pageCounter] = [];
+                }
+            }
+            
+            // Target filter
+            if (targetFilter.value != "")
+            {
+                let delim = 2;
+                if (j.rawText.includes("ADD_IMAGE") || j.rawText.includes("DELETE_IMAGE")) delim = 4;
+                
+                if (j.rawText.split(" ")[delim].includes(targetFilter))
+                {
+                    newPages[pageCounter].unshift(j);
+                    counter++;
+                    if (counter >= maxLogsPerPage)
+                    {
+                        pageCounter++;
+                        newPages[pageCounter] = [];
+                    }
+                }
+            }
+        }
+    }
+
+    usedPages = newPages;
+    OpenPage(1);
+}

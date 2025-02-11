@@ -3,138 +3,139 @@
 //const selfURL = "http://localhost:8080"
 
 // Constants (deployment values)
-const fetchURL = "https://raw.githubusercontent.com/Graphite2213/SNSWiki-Pages/master/";
-const selfURL = "http://sns.graphite.in.rs"
+const fetchURL = "https://data.graphite.in.rs/";
+const selfURL = window.location.origin;
 const currentPage = window.location.pathname.split("/").pop();
+const globalHeaders = { Accept: "text/plain" };
+const historyElemPerPage = 15;
+const lang = window._languageDiff;
 
 // Global variables
-let currHover;
-let pageTitle;
+let pageTitle = "home";
 let locale;
 let oppLocale;
 let theme;
-let refHighlight;
-let barToClearNote = false;
-let showingDropdown = false;
+let historyPageNum = 1;
+let historyPages = ["", ""];
+let userCache = new Map();
+let existenceCache = new Map();
+let unchangedPostText = "";
+let isMobile = false;
+
+/*** @type {Editor} */
+let editorInstance;
 
 // Initialize sitewide variables (used in shadow DOM too)
-window._searchMeta = "";
+window._userData = {};
 window._titles = [];
+window._searchData = "";
+window._backendWorker = `http://127.0.0.1:8787`;
+window._pageExists = true;
+window._editingNews = false;
+window._editingFeatured = false;
+window._creatingNewPage = false;
 
 // On site load
-function OnLoad(l) {
+async function OnLoad(l) 
+{
+    // Set theme, locale and opposing locale
     theme = CookieManager.GetCookie("theme");
-    if (theme == "dark") SwitchToDark();
-
-    // Assign locale, then wait for search meta to load in, this is necessary to avoid empty search meta in OnLoad()
     locale = l;
+    ThemeInit();
     if (locale == 'en') oppLocale = 'rs';
     else oppLocale = 'en';
-    GetSearchMeta().then(() => {
-        if (currentPage == "wiki") LoadPost();
-    });
 
-    document.getElementById("reftooltip").addEventListener("mouseover", HoverRefBox);
-    document.getElementById("reftooltip").addEventListener("mouseout", HoverRefBoxClear);
-}
+    window.BackgroundCheck();
+    LoadSearch();
+    if (currentPage == "wiki") await LoadPost();
+    if (currentPage == "home") await LoadHomeContent();
 
-// Get all pages, featured articles, meta for locale
-async function GetSearchMeta()
-{
-    const response = await fetch(fetchURL + `${locale}/${locale}-meta.json`, 
-    {
-        method: "GET",
-    });
+    // Check for GitHub auth
+    const gh = CookieManager.GetCookie("github-auth");
+    if (typeof gh == "string") window.SetUserData(gh, locale, pageTitle);
+    else document.getElementById("loginWithGH").style.display = "flex";
 
-    if (!response.ok) throw 'bad request';
-    window._searchMeta = JSON5.parse(await response.text());
-    LoadSidebar();
+    // Once everything is loaded, show the page
+    document.body.style.visibility = "visible";
+
+    editorInstance = new Editor("editorInput", "editorOutput", "postText", "loginPrompt", "toolbar");
+    if (currentPage == "sandbox") await EditorInitLoad();
 }
 
 // Load the sidebar
 function LoadSidebar()
 {
-    // For the "wiki" part of the wiki (pages n stuff) load the content, otherwise load the featured articles
+    // For the "wiki" part of the wiki (pages n stuff) load the content
     if (currentPage == "wiki")
     {
-        setTimeout(() => {
+        setTimeout(() => 
+        {
             let allTitles = `<li><b>(Top)</b></li>`;
-            window._titles.forEach(e => {
+            window._titles.forEach(e => 
+            {
                 allTitles += `<li><a class="contentListChild" onclick="ScrollHeaderIntoView(event)">${e}</a></li>`;
             });
             document.getElementById("pageContent").innerHTML = allTitles;
         }, 50);
     }
-    if (currentPage == "home")
+}
+
+function SetSidebarLogin() {
+    const gh = CookieManager.GetCookie("github-auth");
+    if (gh != "" && typeof gh != "undefined")
     {
-        const featured = window._searchMeta.featured;
-        const news = window._searchMeta.news;
+        document.getElementById("loginSidebar").classList.remove("sidebarLink");
+        document.getElementById("loginSidebar").classList.add("sidebarText");
+        document.getElementById("loginSidebar").setAttribute("onclick", "");
+        document.getElementById("loginSidebar").innerHTML = `${lang[locale].LoggedInAs} <a class="sidebarLink" style="display: inline" onclick="ShowUserData('${window._ghInfo.login}')">${window._ghInfo.login}</a>`;
+        document.getElementById("logoutLink").style.display = "block";
+    }  
+};
 
-        let featuredList = ``;
-        featured.forEach(e => {
-            featuredList += `<li>${e}</li>`
-        });
+async function LoadHomeContent() {
+    const featuredText = await fetch(fetchURL + `${locale}/featured.html`, { method: "GET" });
+    const newsText = await fetch(fetchURL + `${locale}/featured.html`, { method: "GET" });
+    const searchData = await fetch(window._backendWorker + `/search/${locale}`);
 
-        document.getElementById("featuredList").innerHTML = featuredList;
-
-        let newsList = ``;
-        news.forEach(e => {
-            newsList += `<li>${e}</li>`
-        });
-
-        document.getElementById("newsList").innerHTML = newsList;
-    }
+    document.getElementById("newsList").innerHTML = await newsText.text();
+    document.getElementById("featuredList").innerHTML = await featuredText.text();
+    window._searchData = (await searchData.json()).pages;
 }
 
-// Because shadow DOM doesn't support # links, we have to scroll headers into view using this.
-// ~~TODO: Make this work with id and then add the ability to up-scroll to references too~~ DONE!
-function ScrollHeaderIntoView(e)
+async function EditNewsTile()
 {
-    const allElems = document.getElementById("postText").getElementsByTagName("w-h1");
-
-    for (let i = 0; i < allElems.length; i++)
+    const allButtons = editorInstance.toolbar.toolbarButtons;
+    let seen = false;
+    for (let [x, y] of allButtons)
     {
-        if (allElems[i].innerHTML == e.target.innerText) allElems[i].scrollIntoView({ behavior: "smooth" });
-    }
-}
-
-function ScrollRefIntoView(e)
-{
-    document.getElementById("postText").getElementsByTagName("w-reflist")[0].shadowRoot.getElementById("ref_link_" + e.target.dataset.ref_number).scrollIntoView({ behavior: "smooth" })
-    document.getElementById("postText").getElementsByTagName("w-reflist")[0].shadowRoot.getElementById("ref_link_" + e.target.dataset.ref_number).style.backgroundColor = "#f1f4fd";
-    if (typeof refHighlight != "undefined") refHighlight.style.backgroundColor = "transparent";
-    refHighlight = document.getElementById("postText").getElementsByTagName("w-reflist")[0].shadowRoot.getElementById("ref_link_" + e.target.dataset.ref_number);
-}
-
-// All internal links go through this function
-async function InternalLink(e)
-{
-    const newPage = encodeURI(e.target.getAttribute("data-href"));
-    window.location.replace(`${selfURL}/${locale}/wiki?page=` + newPage);
-}
-
-
-class CookieManager {
-    static GetCookie(cname) {
-        const x = document.cookie.split(";");
-        for (let i = 0; i < x.length; i++)
-        {
-            if (x[i].includes(`${cname}`)) 
-            {
-                return x[i].split("=")[1];
-            }
-        }
-        return "";
+        if (x == "backButton") continue;
+        if (x == "previewButton") break;
+        if (seen) editorInstance.toolbar.HideButton(x);
+        if (x == "redo") seen = true;
     }
 
-    static SetCookie(cname, value) {
-        document.cookie = `${cname}=${value}`;
-    }
+    editorInstance.OpenEditor(document.getElementById("newsList").innerHTML, false);
 }
 
-function toggleMobileDropdown()
+async function EditFeaturedTile()
 {
-    if (showingDropdown) document.getElementById("mobileDropdown").style.display = "none";
-    else document.getElementById("mobileDropdown").style.display = "flex";
-    showingDropdown = !showingDropdown;
+    const allButtons = editorInstance.toolbar.toolbarButtons;
+    let seen = false;
+    for (let [x, y] of allButtons)
+    {
+        if (x == "backButton") continue;
+        if (x == "previewButton") break;
+        if (seen) editorInstance.toolbar.HideButton(x);
+        if (x == "redo") seen = true;
+    }
+
+    editorInstance.OpenEditor(document.getElementById("featuredList").innerHTML, false);
 }
+
+async function LoadSearch()
+{
+    const response3 = await fetch(window._backendWorker + `/search/${locale}`);
+    window._searchData = (await response3.json()).pages;
+}
+
+window.SetSidebarLogin = SetSidebarLogin;

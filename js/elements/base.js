@@ -29,9 +29,9 @@ class WikiImage extends LitElement {
 
 	static styles = css`
 	figure {
-		background-color: #e6e6e6;
+		background-color: var(--infobox-bg);
 		border: 1px gray solid;
-		color: black !important;
+		color: var(--text-color) !important;
 		font-size: 0.9em;
 		text-align: center;
 		float: right;
@@ -45,15 +45,16 @@ class WikiImage extends LitElement {
 		min-width: 250px;
     	height: auto;
     	padding: 2px;
-    	background-color: #e6e6e6;
+    	background-color: var(--infobox-bg);
 	}
 
 	figcaption {
-		background-color: #e6e6e6;
+		background-color: var(--infobox-bg);
     	padding: 5px;
+		padding-top: 0;
 	}
 
-	@media (max-width:641px)  {
+	@media (max-width:780px)  {
 		figure {
 			float: none;
     		clear: none;
@@ -103,34 +104,40 @@ class WikiLink extends LitElement {
 		url: "",
 		caption: "",
 		external: true,
-		_exists: ""
+		_exists: "",
+		_wikiAddon: ""
 	};
 
 	// For some unknown shadow css reasons .InternalLink isnt colored properly even though its supposed to inherit the default link style
 	static styles = css`
 		a {
 			cursor: pointer;
-			color: #36c;
+			color: var(--link-basic-color);
 			cursor: pointer;
 			text-decoration: none;
 		}
 
 		:hover {
     		text-decoration: underline;
-    		color: #447ff5;
-		}
-
-		:active {
-    		color: #0b0080;
+    		color: var(--link-hover-color);
 		}
 
 		:visited {
-    		color: #6b4ba1;
+    		color: var(--link-visited-color);
 		}
 
 
 		.nonExistent {
-			color: #bf3c2c;
+			color: var(--link-nonexistent-color);
+		}
+
+		.nonExistent:hover {
+			color: var(--link-nonexistent-color);
+			text-decoration: underline;
+		}
+
+		.nonExistent:visited {
+    		color: var(--link-nonexistent-color);
 		}
 
 		.externalLink {
@@ -146,7 +153,7 @@ class WikiLink extends LitElement {
 		super();
 		const tx = this.textContent;
 		const elem = tx.split("|");
-		this.external = true;
+		this.external = false;
 
 		if (elem.length == 2 || elem.length == 1)
 		{
@@ -154,14 +161,17 @@ class WikiLink extends LitElement {
 			if (elem.length == 1) this.url = elem[0];
 			this.caption = elem[0];
 			if (!validator.isURL(this.url)) {
-				this.external = false;
-				this._exists = !window._searchMeta.pages.includes(this.url) ? " nonExistent" : "";
-    			this.url = `${selfURL}/${locale}/wiki?page=` + encodeURI(this.url);
+				PageExists(locale, this.url).then((exists) => {
+					this.external = false;
+					this._exists = !exists ? " nonExistent" : "";
+    				this.url = `${selfURL}/${locale}/wiki?page=` + encodeURI(this.url);
+				});
 			}
 			else if (this.url.includes("wikipedia.org")) 
 			{
 				this.external = false;
 				this._exists = true;
+				this._
 			}
 		}
 		else console.warn("W: Bad link formatting!");
@@ -174,9 +184,9 @@ class WikiLink extends LitElement {
 
 		return this.external
 		// If external link
-    	? html`<a href="${this.url}" class="externalLink">${this.caption}</a>`
+    	? html`<a href="${this.url}" class="externalLink" rel="nofollow">${this.caption}</a>`
 		// If internal link
-    	: html`<a href="${this.url}" class="InternalLink${this._exists}">${this.caption}</a>`;
+    	: html`<a href="${this.url}" class="InternalLink${this._exists}" rel="nofollow">${this.caption}${this._wikiAddon}</a>`;
 	}
 }
 
@@ -185,13 +195,13 @@ class Annotation extends LitElement {
 		type: "",
 		image: "",
 		_annotationType: "",
-		_followModeInfobox: ""
+		_Infobox: ""
 	};
 
 	static styles = css`
 		.annotationWarn {
     		width: fit-content;
-    		background-color: #e6e6e6;
+    		background-color: var(--infobox-bg);
     		border-left: 10px solid #d9931a;
     		border-right: 1px solid grey;
     		border-top: 1px solid grey;
@@ -207,12 +217,13 @@ class Annotation extends LitElement {
     		flex-direction: row;
     		align-items: center;
     		gap: 5px;
-			color: black;
+			color: var(--text-color);
+			text-align: left;
 		}
 
 		.annotationDanger {
     		width: fit-content;
-    		background-color: #e6e6e6;
+    		background-color: var(--infobox-bg);
     		border-left: 10px solid #eb7175;
     		border-right: 1px solid grey;
     		border-top: 1px solid grey;
@@ -228,7 +239,8 @@ class Annotation extends LitElement {
     		flex-direction: row;
     		align-items: center;
     		gap: 5px;
-			color: black;
+			color: var(--text-color);
+			text-align: left;
 		}
 
 		.annotationDef {
@@ -240,7 +252,8 @@ class Annotation extends LitElement {
 			margin-left: 10vh;
 			margin-top: 2vh;
 			margin-bottom: 2vh;
-			color: black;
+			color: var(--text-color);
+			text-align: left;
 		}
 
 		.annoImg {	
@@ -248,7 +261,7 @@ class Annotation extends LitElement {
 			height: auto;
 		}
 
-		@media (max-width:641px)  {
+		@media (max-width:780px)  {
 			.annotationDef {
 				width: 90%;
 				margin-left: 3vw;
@@ -267,24 +280,86 @@ class Annotation extends LitElement {
 	`
 	
 	render() {
-		this._followModeInfobox = "followModeInfobox";
+		this._Infobox = "Infobox";
 		let imageAdd = "";
 		if (this.type == "warn") this._annotationType = "annotationWarn";
 		else if (this.type == "danger") this._annotationType = "annotationDanger";
 		else 
 		{
 			this._annotationType = "annotationDef";
-			this._followModeInfobox = "";
+			this._Infobox = "";
 		}
-		if (this.image != "")
+		if (this.image != "" && typeof this.image != "undefined")
 		{
 			imageAdd = `<img class="annoImg" src="${this.image}">`;
 		}
 
-		return html`<div class="${this._annotationType} ${this._followModeInfobox}">${unsafeHTML(imageAdd)}<span id="slottedText"><slot></slot></span></div>`
+		return html`<div class="${this._annotationType} ${this._Infobox}">${unsafeHTML(imageAdd)}<span id="slottedText"><slot></slot></span></div>`
+	}
+}
+
+class iIcon extends LitElement {
+	static properties = {
+		tooltip: "",
+	};
+
+	static styles = css`
+	.tooltipIcon {
+    	width: 15px;
+    	filter: opacity(0.2);
+    	margin-left: 5px;
+	}`;
+
+	render() {
+		return html`<img class="tooltipIcon" src="https://www.svgrepo.com/show/390989/info-filled.svg" title="${this.tooltip}">`
+	}
+}
+
+class WikiRedirect extends LitElement {
+	static styles = css`
+		#LoadDetector {
+			display: none;
+		}
+
+		#RedirectBox {
+			padding: 20px;
+    		background-color: var(--infobox-bg);
+    		border: 1px solid grey;
+			text-align: center;
+		}
+	`;
+
+	render() {
+		return html`
+		<div id="RedirectBox">
+			${unsafeHTML(lang[locale].RedirectMessage.replaceAll("\"\"", `<a href="${selfURL}/${locale}/wiki?page=${encodeURIComponent(this.textContent)}">${this.textContent}</a>`))}
+			<img id="LoadDetector" onload="WikiRedirect('${this.textContent}')" src="https://imageio.forbes.com/specials-images/imageserve/5ed6636cdd5d320006caf841/0x0.jpg">
+		</div>
+		`;
+	}
+}
+
+class WikiDropdown extends LitElement {
+	static properties = {
+		title: "",
+	};
+
+	static styles = css`
+	`;
+
+	render() {
+		return html`
+		<details>
+			<summary>${this.title}</summary>
+			<slot></slot>
+		</details>
+		`;
 	}
 }
 
 customElements.define('w-img', WikiImage);
 customElements.define('w-a', WikiLink)
 customElements.define("w-annotation", Annotation);
+customElements.define("w-ii", iIcon);
+customElements.define("w-redirect", WikiRedirect);
+customElements.define("w-drop", WikiDropdown);

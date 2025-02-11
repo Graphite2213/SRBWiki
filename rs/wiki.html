@@ -1,11 +1,12 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>SNSWiki</title>
+    <title>SrbijaWiki</title>
     
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
-    <meta name='keywords' content="">
+    <meta name="keywords" content="">
     <meta name="twitter:card" content="">
     <meta property="og:title" content="">
     <meta property="og:description" content="">
@@ -13,8 +14,8 @@
     <meta property="og:image" content="">
     <meta content="#b5042a" data-react-helmet="true" name="theme-color">
 
-    <meta name='url' content='http://sns.graphite.in.rs/'>
-    <meta name='language' content='RS'>
+    <meta name="url" content="http://srb.graphite.in.rs/">
+    <meta name="language" content="RS">
     <meta name="robots" content="all">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,33 +23,128 @@
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/wiki.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="../css/editor.css">
+    <link rel="stylesheet" href="../css/editor-min.css">
+    <link rel="stylesheet" href="../css/mobile.css">
+    <link href="https://unpkg.com/ace-diff@^3.0.0/dist/ace-diff.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/ace-diff@^3.0.0/dist/ace-diff-dark.min.css" rel="stylesheet">
     <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
-    <script src="https://unpkg.com/json5@2/dist/index.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.4/ace.js" integrity="sha512-llC5e4MUoX59KrDpxBq/dm222f/DeDqm+UZ2StNkJn9gGshG/wWrziC9a6mOfGc/FQCYrgro/p7Xq47c0QA4FQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>   
+    <script src="https://unpkg.com/ace-diff@^3.0.0"></script>
 </head>
 
-<body onload="OnLoad('rs')">
+<body onload="OnLoad('rs')" style="visibility: hidden;">
     <div id="mainLayout">
+        <div id="confirmationBackdrop">
+            <div id="confirmationPrompt">
+                <span id="confirmationPromptText"></span>
+                <input id="descriptionInput" placeholder="Opis izmena" autocomplete="off">
+                <div id="userEditor">
+                    <img id="userPFP" loading="lazy">
+                    <div id="userInfo">
+                        <div><b>Korisnik: </b><span id="user-login"></span></div>
+                        <div><b>Rang korisnika: </b><span id="user-clearance"></span></div>
+                        <div><b>Opaska: </b><i id="user-note"></i></div>
+                    </div>
+                    <div id="modButtons">
+                        <button class="notableButton access-2">Odobri</button>
+                        <button class="notableButton access-4">Podigni na Administratora</button>
+                        <button class="notableButton access-4">Podigni na Višeg Administratora</button>
+                        <button class="dangerButton access-4">Spusti</button>
+                        <button class="dangerButton access-3">Banuj</button>
+                    </div>
+                </div>
+                <div id="historyEditor">
+                    <div id="historyLegend" style="display: flex; justify-content: space-evenly; gap: 3vw;">
+                        <b>Korisnik</b>
+                        <b>Informacije</b>
+                        <b>Datum</b>
+                        <b>Tip</b>
+                    </div>
+                    <div id="historyList">
+                    </div>
+                    <div style="text-align: center; margin-top: 5px;" id="historyPages">
+                        <b style="cursor: pointer;" onclick="BackPage()">&lt;&nbsp;</b> Stranica <b id="historyStr">1</b> od <b id="historyStrTotal">1</b> <b style="cursor: pointer;" onclick="ForwardPage()">&nbsp;&gt;</b>
+                    </div>
+                    <div id="historyInfo" style="display: none; gap: 1vh;">
+                    </div>
+                </div>
+                <div id="imageEditor">
+                    <div id="selects">
+                        <select id="allImages">
+                        </select>
+                        <div id="filenameWrapper"><input id="filenameInput" style="width: 75%;"> <span id="filenameExtension"></span></div>
+                        <label class="normalButton" id="fileInput" style="font-size: 13.33333px; text-align: center;">Dodaj sliku<input id="fileSelect" type="file" accept="image/*"></label>
+                        <button class="dangerButton" id="removeImage" onclick="PreDeleteImage()">Obriši sliku</button>
+                    </div>
+                    <div id="imagePreview"><img id="preview" /></div>
+                </div>
+                <div id="configEditor">
+                    <div class="configField" id="cF-link">
+                        <span>Druga stranica<w-ii tooltip="Ime stranice na drugom jeziku."></w-ii></span>
+                        <input autocomplete="off">
+                    </div>
+                    <div class="configField" id="cF-desc">
+                        <span>Opis<w-ii tooltip="Kratak opis stranice"></w-ii></span>
+                        <input autocomplete="off">
+                    </div>
+                    <div class="configField" id="cF-img">
+                        <span>Slika<w-ii tooltip="Slika iz Images foldera koja predstavlja stranicu."></w-ii></span>
+                        <select id="imagesList" class="configList" autocomplete="off">
+                        </select>
+                    </div>
+                    <div class="configField" id="cF-keywords">
+                        <span>Ključne reči<w-ii tooltip="Ključne reči za pretraživače, razdvojene zarezom."></w-ii></span>
+                        <div id="keywordInput">
+                            <input id="keywordTextIn" onkeyup="KeywordProcess(event)" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="configField" id="cF-protection">
+                        <span>Nivo zaštite<w-ii tooltip="Ograničava ko može da uređuje stranicu."></w-ii></span>
+                        <select id="protectionList" class="configList">
+                            <option id="noprot" data-enum="0">Bez zaštite</option>
+                            <option id="basicprot" data-enum="1">Osnovna zaštita</option>
+                            <option id="advancedprot" data-enum="2">Napredna zaštita</option>
+                            <option id="sudoprot" data-enum="3">Sistemska zaštita</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="refToolInput">
+                    <div class="refToolField">Naslov <input placeholder="Naslov izvora"></div>
+                    <div class="refToolField">URL <input placeholder="URL do izvora"></div>
+                    <div class="refToolField">Objavljivač <input placeholder="Izdavač izvora (npr. RTS)"></div>
+                    <div class="refToolField">Autor <input placeholder="Autor izvora"></div>
+                    <div class="refToolField">Datum <input placeholder="Datum objavljivanja izvora"></div>
+                </div>
+                <span style="margin-top: 1vh;">
+                    <button class="normalButton" id="cancel" onclick="">Ne</button>
+                    <button class="notableButton" id="proceed" onclick="" style="margin-left: .5vw">Da</button>
+                </span>
+            </div>
+        </div>
         <div id="sidebar">
             <a href="./home"><img id="logo" src="../images/logo.png"></a>
             <div id="searchwrapper">
-                <input id="searchbar" autocomplete="off" placeholder="Pretraži SNSWiki" oninput="OnSearch(event)"/>
+                <input id="searchbar" autocomplete="off" placeholder="Pretraži SRBWiki" oninput="OnSearch(event)"/>
                 <div id="searchresults">
                 </div>
             </div>
             <div class="seperator"></div>
             <div id="featured"><p id="featuredText">
-                <a class="sidebarLink" href="https://github.com/Graphite2213/SNSWiki-Pages/blob/master/rs/">Pomozite u održavanju SNSWiki</a><br>
-                <a class="sidebarLink" href="https://ko-fi.com/graphite2213">Podržite razvoj SNSWiki</a><br>
+                <a id="loginSidebar" class="sidebarLink" onclick="LoginWithGithub()">Ulogujte se sa GitHub-om</a>
+                <a id="logoutLink" class="sidebarLink" onclick="LogoutWithGithub()">Izlogujte se</a>
                 <br>
-                <a onclick="SwitchToDark()" class="sidebarLink" id="themeSwitch">Tamna tema</a><br>
-                <a class="sidebarLink" id="otherLanguage" href="../en/">English version of this page</a><br>
+                <a class="sidebarLink" href="https://github.com/Graphite2213/SNSWiki/blob/master/docs/EDITING-RS.md" target="_blank">Pomozite u održavanju SRBWiki</a>
+                <a class="sidebarLink" href="https://ko-fi.com/graphite2213" target="_blank">Podržite razvoj SRBWiki</a>
+                <a class="sidebarLink" href="https://discord.com/invite/5tHKPFe8KN" target="_blank">SRBWiki Discord zajednica</a>
                 <br>
-                <a class="sidebarLink" id="editPageLink" href="">Uređuj ovu stranicu</a><br>
-                <a class="sidebarLink" href="editor">Otvori editor</a>
+                <a onclick="ThemeToggle()" class="sidebarLink" id="themeSwitch">Tamna tema</a>
+                <a class="sidebarLink" id="otherLanguage" href="../en/">English version of this page</a>
                 <br>
+                <a class="sidebarLink" id="editPageLink" onclick="OpenLocalEditor(event)">Uređuj ovu stranicu</a>
+                <a class="sidebarLink" href="sandbox">Sandbox</a>
+                <a class="sidebarLink" onclick="PreDeletePage()" id="deletePageLink" style="display: none;">Obriši stranicu</a>
+                <a class="sidebarLink" onclick="PreMovePage()" id="movePageLink" style="display: none;">Pomeri stranicu</a>
                 <div class="contentsContainer">
                     <b>Sadržaj:</b><br>
                     <ul id="pageContent" style="list-style: none; padding-left: 0;">
@@ -56,40 +152,83 @@
                 </div>
             </p></div>
             <div class="seperator" style="margin-top: auto;"></div>
-            <div style="margin-bottom: 10px;"><i>Graphite 2024-2024. ❤️</i></div>
+            <div style="margin-bottom: 10px;"><i>Graphite 2024-2025. ❤️</i></div>
         </div>
         <div id="mainArea">
-            <div id="mobileTopBar" class="followModeInfobox">
-                <a href="./home"><img src="../images/logo.png" style="height: 25px; width: auto; margin-left: 10px;"></a>
-                <div id="burgerMenu" onclick="toggleMobileDropdown()"></div>
+            <div id="mobileTopBar">
+                <a href="./home" style="display: flex;"><img src="../images/logo.png" id="mobileTopbarLogo"></a>
+                <div id="burgerMenu" onclick="ToggleMobileDropdown()"></div>
             </div>
             <div id="mobileDropdown">
-                <div class="dropdown search followModeInfobox">
-                    <input id="searchbarMobile" autocomplete="off" placeholder="Pretraži SNSWiki" oninput="OnSearch(event)"/>
+                <div class="dropdown search">
+                    <input id="searchbarMobile" autocomplete="off" placeholder="Pretraži SRBWiki" oninput="OnSearch(event)"/>
                     <div id="resultsMobile">
                 </div>
             </div>
-                <div class="dropdown followModeInfobox"><a class="topbarLink" href="https://github.com/Graphite2213/SNSWiki-Pages/blob/master/rs/">Pomozite u održavanju SNSWiki</a></div>
-                <div class="dropdown followModeInfobox"><a class="topbarLink" href="https://ko-fi.com/graphite2213">Podržite razvoj SNSWiki</a></div>
-                <div class="dropdown followModeInfobox"><a onclick="SwitchToDark()" class="topbarLink" id="themeSwitchMobile">Tamna tema</a></div>
-                <div class="dropdown followModeInfobox"><a class="topbarLink" id="editPageLinkMobile" href="">Uređuj ovu stranicu</a></div>
-                <div class="dropdown followModeInfobox"><a class="topbarLink" href="editor">Otvori editor</a></div>
-                <div class="dropdown followModeInfobox"><a class="topbarLink" id="otherLanguageMobile" href="">English version of this page</a></div>
+                <div class="dropdown"><a class="topbarLink" href="https://github.com/Graphite2213/SNSWiki/blob/master/docs/EDITING-RS.md" target="_blank">Pomozite u održavanju SRBWiki</a></div>
+                <div class="dropdown"><a class="topbarLink" href="https://ko-fi.com/graphite2213" target="_blank">Podržite razvoj SRBWiki</a></div>
+                <div class="dropdown"><a class="topbarLink" href="https://discord.com/invite/5tHKPFe8KN" target="_blank">SRBWiki Discord zajednica</a></div>
+                <div class="dropdown"><a class="topbarLink" onclick="ThemeToggle()" id="themeSwitchMobile">Tamna tema</a></div>
+                <div class="dropdown"><a class="topbarLink" onclick="OpenLocalEditor()" id="editPageLinkMobile">Uređuj ovu stranicu</a></div>
+                <div class="dropdown"><a class="topbarLink" href="sandbox">Sandbox</a></div>
+                <div class="dropdown"><a class="topbarLink" id="otherLanguageMobile" href="">English version of this page</a></div>
             </div>
             <div id="postTitle"></div>
             <div class="seperator"></div>
+            <div id="editorWrapper" style="display: none;">
+                <div id="toolbar">
+                    <div onclick="boldTool()" class="toolWrapper" style="margin-left: 10px;" title="Bold"><div class="tool" id="boldTool"></div></div> 
+                    <div onclick="italicTool()" class="toolWrapper"><div class="tool" id="italicTool" title="Italic"></div></div> 
+                    <div onclick="linkTool()" class="toolWrapper"><div class="tool" id="linkTool" title="Ubaci link u članak"></div></div>
+                    <div onclick="imageTool()" class="toolWrapper"><div class="tool" id="imageTool" title="Ubaci sliku u članak"></div></div>
+                    <div onclick="preRefTool()" class="toolWrapper"><div class="tool" id="refTool"></div></div>
+                    <div onclick="highlightToggle()" class="toolWrapper tWActive"><div class="tool" id="highlightToggle" style="filter: contrast(1)" title="Hajlajtovanje izvornog koda"></div></div>
+                    <div onclick="wrapToggle()" class="toolWrapper tWActive"><div class="tool" id="wrapToggle" style="filter: contrast(1)" title="Prekidanje redova"></div></div>
+                    <div class="toolbarSeparator"><span id="nonce"></span></div>
+                    <div onclick="undoEditor()" class="toolWrapper"><div class="tool" id="undo"></div></div>
+                    <div onclick="redoEditor()" class="toolWrapper"><div class="tool" id="redo"></div></div>
+                    
+                    <div onclick="PreBackToRead()" id="backButtonWrapper" class="toolWrapper textWrapper pusher" title="Vrati se na stranicu"><div class="tool textTool" id="backButton">Nazad</div></div>
+                    <div onclick="OpenHistory()" id="historyButtonWrapper" class="toolWrapper textWrapper" title="Otvori istoriju ove stranice"><div class="tool textTool" id="historyButton">Istorija</div></div>
+                    <div onclick="OpenImages()" class="toolWrapper textWrapper" title="Izmeni slike koje ova stranica sadrži"><div class="tool textTool" id="imagesEditor">Slike</div></div>
+                    <div onclick="OpenConfigEditor()" class="toolWrapper textWrapper"><div class="tool textTool" id="configEdit">Metapodaci</div></div>
+                    <div onclick="PrePreviewEdit()" id="previewWrap" class="toolWrapper textWrapper"><div class="tool textTool" id="previewButton">Prikaži Izmene</div></div>
+                    <div onclick="PrePublish()" id="publishWrap" class="toolWrapper textWrapper"><div class="tool textTool" id="publishButton">Objavi Izmene</div></div>
+                    <div onclick="ToggleToolbarDropdown()" id="mobileToolbarWrap" class="toolWrapper"><div class="tool" id="mobileToolbarButton"></div></div>
+                </div>
+            <div id="mobileToolbarDropdown">
+
+            </div>
+            <div id="loginPrompt">
+                <button id="loginWithGH" onclick="LoginWithGithub()"><img loading="lazy" style="filter: invert(1); margin-right: 10px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png" width="25px" height="auto" />Ulogujte se sa GitHub-om</button>
+                <img id="loadingGif" src="https://i.gifer.com/ZKZg.gif"/>
+            </div>
+            <div id="editorInput"></div>
+            <div id="editorOutput"></div>
+            <div id="editorDiff"></div>
+            </div>
             <div id="postText">
             </div>
-            <div id="reftooltip"></div>
+            <div id="reftooltip" onmouseover="HoverRefBox()" onmouseout="HoverRefBoxClear()"></div>
         </div>
     </div>
-    <script src="../js/index.js"></script>
-    <script src="../js/post.js"></script>
-    <script src="../js/search.js"></script>
-    <script src="../js/theme.js"></script>
-    <script type="module" src="../js/elements/base.js"></script>
-    <script type="module" src="../js/elements/headers.js"></script>
-    <script type="module" src="../js/elements/infobox.js"></script>
-    <script type="module" src="../js/elements/ref.js"></script>
+    <span>
+        <script src="../js/util/languages.js"></script>
+        <script src="../js/index.js"></script>
+        <script src="../js/page.js"></script>
+        <script src="../js/mobile.js"></script>
+        <script src="../js/util/util.js"></script>
+        <script src="../js/util/search.js"></script>
+        <script src="../js/util/theme.js"></script>
+        <script src="../js/editor/tools.js"></script>
+        <script src="../js/editor/editor.js"></script>
+        <script src="../js/editor/p-editor.js"></script>
+        <script src="../js/editor/buttons.js"></script>
+        <script type="module" src="../js/util/worker.mjs"></script>
+        <script type="module" src="../js/elements/base.js"></script>
+        <script type="module" src="../js/elements/headers.js"></script>
+        <script type="module" src="../js/elements/infobox.js"></script>
+        <script type="module" src="../js/elements/ref.js"></script>
+    </span>
 </body>
-    
+</html> 

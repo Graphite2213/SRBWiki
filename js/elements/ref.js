@@ -5,7 +5,7 @@ class ReferenceManager {
     pageRefs = new Map();
     freeNumber = 1;
 
-    addRef(text, name)
+    AddRef(text, name)
     {
         if (typeof name != "undefined")
         {
@@ -21,13 +21,13 @@ class ReferenceManager {
         return obj;
     }
 
-    getRef(name)
+    GetRef(name)
     {
         if (!this.pageRefs.has(name)) return -1;
         return this.pageRefs.get(name);
     }
 
-    getRefByNumber(num)
+    GetRefByNumber(num)
     {
         for (const [key, value] of this.pageRefs) 
         {
@@ -35,7 +35,7 @@ class ReferenceManager {
         }
     }
 
-    getAllRefs()
+    GetAllRefs()
     {
         let val = [];
         for (const [key, value] of this.pageRefs)
@@ -45,13 +45,14 @@ class ReferenceManager {
         return val;
     }
 
-    clearRefs()
+    ClearRefs()
     {
         this.pageRefs.clear();
         this.freeNumber = 1;
     }
 }
 
+window._BackupRef = new ReferenceManager();
 window._RefManager = new ReferenceManager();
 
 
@@ -85,7 +86,7 @@ class RefContain extends LitElement {
 	}
         
     .references {
-        font-size: 100%;
+        font-size: 90%;
         margin-bottom: 0;
         list-style-type: inherit;
     }
@@ -112,15 +113,15 @@ class RefContain extends LitElement {
         margin-bottom: 0.5em;
         list-style-type: decimal;
         margin-top: 0.3em;
-        column-width: 30em;
+        column-width: 20em;
         padding-bottom: 2vh;
     }
     
     a {
-        color: #337ab7;
+        color: var(--link-basic-color);
     }
 
-    @media (max-width:641px)  {
+    @media (max-width:780px)  {
         .reflist {
             column-width: 90vw;
         }
@@ -129,20 +130,21 @@ class RefContain extends LitElement {
 
     constructor() {
 		super();
-
+	}
+    
+    render() {
         setTimeout(() => {
-            const allRefs = window._RefManager.getAllRefs();
+            const allRefs = window._RefManager.GetAllRefs();
             this.allRefs = '';
             for (const x of allRefs)
             {
                 this.allRefs += `<li id="ref_link_${x[1].refNumber}">${x[1].refText}</li>`
             }
         }, 100);
-	}
-    
-    render() {
+
         if (typeof this.title == "undefined") this.title = (locale == "en") ? "References" : "Izvori";
         window._titles.push(this.title);
+
         return html`<div class="head1">${this.title}</div>
         <div class="reflist">
             <ol class="references">
@@ -160,7 +162,7 @@ class InlineRef extends LitElement {
 
 	static styles = css`
         a {
-            color: #337ab7;
+            color: var(--link-basic-color);
             cursor: pointer;
             text-decoration: none;
         }
@@ -173,13 +175,13 @@ class InlineRef extends LitElement {
 	render() {
         if (typeof this.name != "undefined") 
         {
-            this.instRef = window._RefManager.getRef(this.name);
+            this.instRef = window._RefManager.GetRef(this.name);
         }
 
         if (this.instRef == -1 || typeof this.name == "undefined")
         {
             const text = this.innerHTML;
-            this.instRef = window._RefManager.addRef(text, this.name);
+            this.instRef = window._RefManager.AddRef(text, this.name);
         }
 		return html`<sup><a data-ref_number="${this.instRef.refNumber}" onmouseover="NotationHover(event)" onmouseout="NotationHoverClear(event)" onclick="ScrollRefIntoView(event)">[${this.instRef.refNumber}]</a></sup>`
 	}
