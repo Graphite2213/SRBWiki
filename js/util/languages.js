@@ -63,7 +63,19 @@ window._languageDiff = {
         Admin: "Administrator",
         ApprovedUser: "Verified User",
         User: "User",
-        Banned: "Banned"
+        Banned: "Banned",
+
+        pageCreateTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> created page <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>`,
+        imageAddTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> added image <b>:page:</b> to page <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>`,
+        pageRemoveTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> removed page <b>:page: (:locale:)</b>. Reason: :reason:`,
+        imageRemoveTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> removed image <b>:filename:</b> from page <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>. Reason: :reason:`,
+        approvalTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> verified user <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>`,
+        escalationTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> gave <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> the Administrator rank.`,
+        higherEscalationTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> gave <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> the Senior Adminstrator rank.`,
+        deapprovalTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> de-verified <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Reason: :reason:`,
+        patosTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> reset <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>'s rank. Reason: :reason:`,
+        banTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> banned <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Reason: :reason:`,
+        moveTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> moved <b>:page:</b> to <b>:page2:</b> <b>(:locale:)</b>.`
     },
     rs: {
         BackPrompt: `Da li ste sigurni da želite da izađete iz editora? Sve izmene biće izgubljene.`,
@@ -127,6 +139,18 @@ window._languageDiff = {
         Admin: "Administrator",
         ApprovedUser: "Potvrđeni Korisnik",
         User: "Korisnik",
-        Banned: "Banovan"
+        Banned: "Banovan",
+
+        pageCreateTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je stvorio stranicu <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>`,
+        imageAddTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je dodao sliku <b>:page:</b> na stranicu <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>`,
+        pageRemoveTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio stranicu <b>:page: (:locale:)</b>. Razlog: :reason:`,
+        imageRemoveTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio sliku <b>:filename:</b> na stranici <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>. Razlog: :reason:`,
+        approvalTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>`,
+        escalationTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je digao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> u rang Administratora`,
+        higherEscalationTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je digao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> u rang Višeg Administratora`,
+        deapprovalTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je od-potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`,
+        patosTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je spustio rang korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`,
+        banTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je banovao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`,
+        moveTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je pomerio stranicu <b>:page:</b> na <b>:page2:</b> <b>(:locale:)</b>.`
     }
 };

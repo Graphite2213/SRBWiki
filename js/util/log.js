@@ -29,17 +29,17 @@ class LogEntry
 async function PopulateLog()
 {
     // Templates
-    const pageCreateTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je stvorio stranicu <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>`;
-    const imageAddTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je dodao sliku <b>:page:</b> na stranicu <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>`;
-    const pageRemoveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio stranicu <b>:page: (:locale:)</b>. Razlog: :reason:`;
-    const imageRemoveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio sliku <b>:filename:</b> na stranici <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>. Razlog: :reason:`;
-    const approvalTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>`;
-    const escalationTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je digao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> u rang Administratora`;
-    const higherEscalationTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je digao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> u rang Višeg Administratora`;
-    const deapprovalTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je od-potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
-    const patosTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je spustio rang korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
-    const banTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je banovao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
-    const moveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je pomerio stranicu <b>:page:</b> na <b>:page2:</b> <b>(:locale:)</b>.`;
+    const pageCreateTemplate = lang[locale].pageCreateTemplate;
+    const imageAddTemplate = lang[locale].imageAddTemplate;
+    const pageRemoveTemplate = lang[locale].pageRemoveTemplate;
+    const imageRemoveTemplate = lang[locale].imageRemoveTemplate;
+    const approvalTemplate = lang[locale].approvalTemplate;
+    const escalationTemplate = lang[locale].escalationTemplate;
+    const higherEscalationTemplate = lang[locale].higherEscalationTemplate;
+    const deapprovalTemplate = lang[locale].deapprovalTemplate;
+    const patosTemplate = lang[locale].patosTemplate;
+    const banTemplate = lang[locale].banTemplate;
+    const moveTemplate = lang[locale].moveTemplate;
 
     // Fetch the entire log
     const data = fetch(fetchURL + "dev.log");

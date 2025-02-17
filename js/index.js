@@ -66,8 +66,8 @@ async function OnLoad(l, ps_pageExists = true)
     await QueryCheck();
     LoadSearch();
     if (pageTitle != "home" && pageTitle != "sandbox" && pageExists) await GetMetaData();
-    if (pageTitle == "home") await LoadHomeContent();
     else if (pageTitle != "sandbox") LoadSidebar();
+    await LoadHomeContent();
 
     // Once everything is loaded,  create an editor
     editorInstance = new Editor("editorInput", "editorOutput", "postText", "loginPrompt", "toolbar");
