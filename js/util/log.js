@@ -1,22 +1,17 @@
+// Admin log code
+
+// Values to track log pages, all logs and allat
 let logPages = [[], []];
 let usedPages = [[], []];
 const maxLogsPerPage = 25;
 let currentLogPage = 1;
 let lastLogPage = 1;
 
-const pageCreateTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je stvorio stranicu <b><a href="${selfURL}/wiki?page=:page:">:page:</a> (:locale:)</b>`;
-const imageAddTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je dodao sliku <b>:page:</b> na stranicu <b><a href="${selfURL}/wiki?page=:page:">:page:</a> (:locale:)</b>`;
-const pageRemoveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio stranicu <b>:page: (:locale:)</b>. Razlog: :reason:`;
-const imageRemoveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio sliku <b>:filename:</b> na stranici <b><a href="${selfURL}/wiki?page=:page:">:page:</a> (:locale:)</b>. Razlog: :reason:`;
-const approvalTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>`;
-const escalationTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je digao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> u rang Administratora`;
-const higherEscalationTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je digao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> u rang Višeg Administratora`;
-const deapprovalTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je od-potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
-const patosTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je spustio rang korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
-const banTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je banovao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
-const moveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je pomerio stranicu <b>:page:</b> na <b>:page2:</b> <b>(:locale:)</b>.`;
-
-class LogEntry {
+/**
+ * A single log entry
+ */
+class LogEntry
+{
     htmlText = "";
     rawText = "";
 
@@ -27,14 +22,33 @@ class LogEntry {
     }
 }
 
+/**
+ * Populates admin log
+ * @returns {void}
+ */
 async function PopulateLog()
 {
+    // Templates
+    const pageCreateTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je stvorio stranicu <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>`;
+    const imageAddTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je dodao sliku <b>:page:</b> na stranicu <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>`;
+    const pageRemoveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio stranicu <b>:page: (:locale:)</b>. Razlog: :reason:`;
+    const imageRemoveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio sliku <b>:filename:</b> na stranici <b><a href="${selfURL}/wiki/:page:">:page:</a> (:locale:)</b>. Razlog: :reason:`;
+    const approvalTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>`;
+    const escalationTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je digao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> u rang Administratora`;
+    const higherEscalationTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je digao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b> u rang Višeg Administratora`;
+    const deapprovalTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je od-potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
+    const patosTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je spustio rang korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
+    const banTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je banovao korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>. Razlog: :reason:`;
+    const moveTemplate = `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je pomerio stranicu <b>:page:</b> na <b>:page2:</b> <b>(:locale:)</b>.`;
+
+    // Fetch the entire log
     const data = fetch(fetchURL + "dev.log");
     const parsedData = (await ((await data).text())).split("\n");
     let l_counter = 0;
     let l_page = 1;
     logPages = [[], []];
 
+    // Go through all the logs and fill in the pages
     for (const x of parsedData)
     {
         if (x == "") continue;
@@ -46,13 +60,14 @@ async function PopulateLog()
         console.log(cet);
         let finalElement = "";
 
+        // Depends on intent and action
         switch (intent)
         {
             case 'ADD_IMAGE':
                 finalElement = imageAddTemplate.replaceAll(":user:", user);
                 finalElement = finalElement.replaceAll(":filename:", target);
                 finalElement = finalElement.replaceAll(":page:", decodeURIComponent(cet.split("/")[1]));
-                finalElement = finalElement.replaceAll(":locale:",  cet.split("/")[0]);
+                finalElement = finalElement.replaceAll(":locale:", cet.split("/")[0]);
                 break;
 
             case 'ADD_PAGE':
@@ -72,7 +87,7 @@ async function PopulateLog()
             case 'DELETE_PAGE':
                 finalElement = pageRemoveTemplate.replaceAll(":user:", user);
                 finalElement = finalElement.replaceAll(":page:", decodeURIComponent(target.split("/")[1]));
-                finalElement = finalElement.replaceAll(":locale:",  target.split("/")[0]);
+                finalElement = finalElement.replaceAll(":locale:", target.split("/")[0]);
                 finalElement = finalElement.replaceAll(":reason:", decodeURIComponent(cet));
                 break;
 
@@ -80,7 +95,7 @@ async function PopulateLog()
                 finalElement = approvalTemplate.replaceAll(":user:", user);
                 finalElement = finalElement.replaceAll(":subject:", target);
                 break;
-            
+
             case 'PROMOTE_ADMIN':
                 finalElement = escalationTemplate.replaceAll(":user:", user);
                 finalElement = finalElement.replaceAll(":subject:", target);
@@ -113,13 +128,14 @@ async function PopulateLog()
                 finalElement = moveTemplate.replaceAll(":user:", user);
                 finalElement = finalElement.replaceAll(":page:", decodeURIComponent(target.split("/")[1]));
                 finalElement = finalElement.replaceAll(":page2:", decodeURIComponent(cet.split("/")[1]));
-                finalElement = finalElement.replaceAll(":locale:",  target.split("/")[0]);
+                finalElement = finalElement.replaceAll(":locale:", target.split("/")[0]);
 
             default:
                 console.warn("W: Weird log output. Check logs manually?");
                 break;
         }
 
+        // Actually add the log card
         logPages[l_page].unshift(new LogEntry(" " + `<div class="logEntry"><span>${finalElement}</span><span style="font-size: 75%; opacity: 70%;">${x.split("TIME ")[1]}</span></div>`, x));
         l_counter++;
         if (l_counter >= maxLogsPerPage)
@@ -128,12 +144,18 @@ async function PopulateLog()
             logPages[l_page] = [];
         }
     }
+
+    // Set page numbers
     document.getElementById('logPageTot').innerText = l_page;
     lastLogPage = l_page;
     usedPages = logPages;
     OpenPage(1);
 }
 
+/**
+ * Goes forward a page in the log
+ * @returns {void}
+ */
 function NextLogPage()
 {
     if (currentLogPage >= lastLogPage) return;
@@ -142,6 +164,10 @@ function NextLogPage()
     document.getElementById('logPage').innerText = currentLogPage;
 }
 
+/**
+ * Goes back a page in the log
+ * @returns {void}
+ */
 function PrevLogPage()
 {
     if (currentLogPage <= 1) return;
@@ -150,6 +176,11 @@ function PrevLogPage()
     document.getElementById('logPage').innerText = currentLogPage;
 }
 
+/**
+ * Opens specific log page
+ * @returns {void}
+ * @param {number} num - Page number
+ */
 function OpenPage(num)
 {
     let str = ``;
@@ -158,10 +189,14 @@ function OpenPage(num)
     {
         str = x.htmlText + " " + str;
     }
-
     document.getElementById("logList").innerHTML = str;
 }
 
+/**
+ * Filters the current logs
+ * @returns {void}
+ * @param {number} num - Page number
+ */
 function FilterLogs()
 {
     let newPages = [[], []];
@@ -178,6 +213,8 @@ function FilterLogs()
 
     const allActions = ["", "ADD_PAGE", "ADD_IMAGE", "DELETE_PAGE", "DELETE_IMAGE", "APPROVE", "PROMOTE_ADMIN", "PROMOTE_HIGHER_ADMIN", "DEAPPROVE", "DEFAULT", "BAN", "MOVE"];
     const allLocaleMatch = ["", "(rs)", "(en)"];
+
+    // Reconstruct log pages depending on filters
     for (const i of logPages)
     {
         for (const j of i)
@@ -194,7 +231,6 @@ function FilterLogs()
                 }
             }
 
-            console.log(j.htmlText, allLocaleMatch[selectedOptionLoc])
             // Locale filter
             if (selectedOptionLoc != 0 && j.htmlText.includes(`${allLocaleMatch[selectedOptionLoc]}`))
             {
@@ -218,13 +254,13 @@ function FilterLogs()
                     newPages[pageCounter] = [];
                 }
             }
-            
+
             // Target filter
             if (targetFilter.value != "")
             {
                 let delim = 2;
                 if (j.rawText.includes("ADD_IMAGE") || j.rawText.includes("DELETE_IMAGE")) delim = 4;
-                
+
                 if (j.rawText.split(" ")[delim].includes(targetFilter))
                 {
                     newPages[pageCounter].unshift(j);
@@ -239,6 +275,7 @@ function FilterLogs()
         }
     }
 
+    // Set new pages and open first one
     usedPages = newPages;
     OpenPage(1);
 }

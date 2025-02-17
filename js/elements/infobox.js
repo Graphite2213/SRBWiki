@@ -1,26 +1,27 @@
 import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
 import { unsafeHTML } from 'https://unpkg.com/lit-html@3.1.3/directives/unsafe-html.js';
 
-const validatorArgs = { 
-	protocols: ['http','https','ftp'], 
-	require_tld: true, 
-	require_protocol: true, 
-	require_host: true, 
-	require_port: false, 
-	require_valid_protocol: true, 
-	allow_underscores: true, 
-	host_whitelist: false, 
-	host_blacklist: true, 
-	allow_trailing_dot: true, 
-	allow_protocol_relative_urls: true, 
-	allow_fragments: true, 
-	allow_query_components: true, 
-	disallow_auth: false, 
-	validate_length: false 
+const validatorArgs = {
+	protocols: ['http', 'https', 'ftp'],
+	require_tld: true,
+	require_protocol: true,
+	require_host: true,
+	require_port: false,
+	require_valid_protocol: true,
+	allow_underscores: true,
+	host_whitelist: false,
+	host_blacklist: true,
+	allow_trailing_dot: true,
+	allow_protocol_relative_urls: true,
+	allow_fragments: true,
+	allow_query_components: true,
+	disallow_auth: false,
+	validate_length: false
 };
 
-class InfoboxMain extends LitElement {
-    static properties = {
+class InfoboxMain extends LitElement
+{
+	static properties = {
 		type: "",
 		title: ""
 	};
@@ -66,6 +67,10 @@ class InfoboxMain extends LitElement {
 	}
 
 	@media (max-width:780px)  {
+		.infobox {
+			width: 30em;
+		}
+		
 		.infoboxWrapper {
 			clear: none;
 			float: none;
@@ -79,20 +84,22 @@ class InfoboxMain extends LitElement {
 			margin-left: 5vw;
 		}
 	}
-  	`;  
+  	`;
 
-    render() {
-        return html`<div class="infoboxWrapper">
+	render()
+	{
+		return html`<div class="infoboxWrapper">
 			<span class="infoTitle">${this.title}</span>
 			<div class="infobox">
             	<slot></slot>
         	</table>
 		</div>
         `;
-    }
+	}
 }
 
-class InfoboxImage extends LitElement {
+class InfoboxImage extends LitElement
+{
 	static properties = {
 		url: "",
 		caption: ""
@@ -112,14 +119,17 @@ class InfoboxImage extends LitElement {
 	}
   	`;
 
-	constructor() {
+	constructor()
+	{
 		super();
 		const tx = this.textContent;
 		const elem = tx.split("|");
-		if (elem.length == 0) {
+		if (elem.length == 0)
+		{
 			this.url = tx;
 		}
-		else {
+		else
+		{
 			this.url = elem[1];
 			this.caption = elem[0];
 		}
@@ -129,11 +139,12 @@ class InfoboxImage extends LitElement {
 		}
 
 	}
-	
-	render() {
-		//<wi-image>url|caption</wi-image>
+
+	render()
+	{
+		//<wi-img>url|caption</wi-img>
 		// If there is no | count everything as url
-		return html`<div><img class="infoboxImg" src="${this.url}"><p class="infoboxImgCaption">${this.caption}</p></div>`
+		return html`<div><img class="infoboxImg" src="${this.url}"><p class="infoboxImgCaption">${this.caption}</p></div>`;
 	}
 }
 class InfoboxSection extends LitElement
@@ -155,7 +166,8 @@ class InfoboxSection extends LitElement
 	}
 }
 
-class InfoboxRow extends LitElement {
+class InfoboxRow extends LitElement
+{
 	static properties = {
 		left: "",
 		right: ""
@@ -192,7 +204,8 @@ class InfoboxRow extends LitElement {
 	}
   	`;
 
-	constructor() {
+	constructor()
+	{
 		super();
 		const tx = this.innerHTML;
 		let elem = tx.split("|");
@@ -208,16 +221,18 @@ class InfoboxRow extends LitElement {
 		}
 		else console.error("E: Misformatted infobox row, missing left/right");
 	}
-	
-	render() {
+
+	render()
+	{
 		//<wi-row>left|right</wi-row>
 		// If there is no | count everything as url
-		return html`<div class="infoboxRow"><div class="infoboxLeft">${unsafeHTML(this.left)}</div><div class="infoboxRight">${unsafeHTML(this.right)}</div></div>`
+		return html`<div class="infoboxRow"><div class="infoboxLeft">${unsafeHTML(this.left)}</div><div class="infoboxRight">${unsafeHTML(this.right)}</div></div>`;
 	}
 }
 
 
-class InfoboxCellImage extends LitElement {
+class InfoboxCellImage extends LitElement
+{
 	static properties = {
 		url: ""
 	};
@@ -229,22 +244,25 @@ class InfoboxCellImage extends LitElement {
 	}
   	`;
 
-	constructor() {
+	constructor()
+	{
 		super();
-		
+
 		this.url = this.textContent;
 		if (!validator.isURL(this.url, validatorArgs))
 		{
 			this.url = fetchURL + `${locale}/${pageTitle}/Images/${encodeURI(this.url)}`;
 		}
 	}
-	
-	render() {
-		return html`<img class="infoboxRightImg" src="${this.url}">`
+
+	render()
+	{
+		return html`<img class="infoboxRightImg" src="${this.url}">`;
 	}
 }
 
-class InfoboxVSSection extends LitElement {
+class InfoboxVSSection extends LitElement
+{
 	static properties = {
 	};
 
@@ -261,23 +279,27 @@ class InfoboxVSSection extends LitElement {
 		}
 	`;
 
-	constructor() {
+	constructor()
+	{
 		super();
 
 	}
-	
-	render() {
+
+	render()
+	{
 		return html`
 		<div class="infoboxVS"> 
 			<slot></slot>
-		</div>`
+		</div>`;
 	}
 }
 
-class InfoboxVSSide extends LitElement {
+class InfoboxVSSide extends LitElement
+{
 }
 
-class InfoboxVSParty extends LitElement {
+class InfoboxVSParty extends LitElement
+{
 	static properties = {
 		list: "",
 		collapsed: "",
@@ -326,10 +348,11 @@ class InfoboxVSParty extends LitElement {
 		}
 	`;
 
-	constructor() {
+	constructor()
+	{
 		super();
 	}
-	
+
 	hideshow(e)
 	{
 		if (!this._col || typeof this._col == "undefined") 
@@ -337,7 +360,8 @@ class InfoboxVSParty extends LitElement {
 			e.target.innerText = "hide";
 			e.target.parentNode.parentNode.parentNode.children[1].style.display = "block";
 		}
-		else {
+		else
+		{
 			e.target.innerText = "show";
 			e.target.parentNode.parentNode.parentNode.children[1].style.display = "none";
 		}
@@ -345,15 +369,16 @@ class InfoboxVSParty extends LitElement {
 		this._col = !this._col;
 	}
 
-	render() {
+	render()
+	{
 		return (typeof this.list != "undefined" && typeof this.collapsed != "undefined")
-		? html`<span><div style="display: flex; align-items: flex-start;"><b>${this.list}</b><button class="colbutton">[<span @click=${(e) => {this.hideshow(e)}} class="buttontext">show</span>]</button></div><div class="slotdiv"><slot></slot></div></span>`
-		: html`<span><b>${this.list}</b><slot></slot></span>`;
+			? html`<span><div style="display: flex; align-items: flex-start;"><b>${this.list}</b><button class="colbutton">[<span @click=${(e) => { this.hideshow(e); }} class="buttontext">show</span>]</button></div><div class="slotdiv"><slot></slot></div></span>`
+			: html`<span><b>${this.list}</b><slot></slot></span>`;
 	}
 }
 
 customElements.define('w-infobox', InfoboxMain);
-customElements.define('wi-image', InfoboxImage);
+customElements.define('wi-img', InfoboxImage);
 customElements.define('wi-header', InfoboxSection);
 customElements.define('wi-row', InfoboxRow);
 customElements.define("wic-image", InfoboxCellImage);

@@ -143,7 +143,7 @@ class RefContain extends LitElement {
         }, 100);
 
         if (typeof this.title == "undefined") this.title = (locale == "en") ? "References" : "Izvori";
-        window._titles.push(this.title);
+        //articleTitles.push(this.title);
 
         return html`<div class="head1">${this.title}</div>
         <div class="reflist">

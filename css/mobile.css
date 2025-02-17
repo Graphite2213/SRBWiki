@@ -8,6 +8,11 @@
     display: none;
 }
 
+img#mobileTopbarLogo {
+    width: 5vw;
+    margin-left: 10px;
+}
+
 #burgerMenu {
     background-image: url("https://www.svgrepo.com/show/506800/burger-menu.svg");
     background-size: contain;
@@ -31,12 +36,20 @@
 
 #mobileDropdown {
     display: flex;
-    width: 105%;
+    width: 105vw;
     height: fit-content;
     flex-direction: column;
     border-bottom: 1px solid grey;
     display: none;
     align-items: center;
+    justify-content: center;
+}
+
+#resultsMobile {
+    display: flex;
+    position: absolute;
+    top: 9.7vh;
+    flex-direction: column;
 }
 
 .mobileTopbarLogo {
@@ -66,6 +79,9 @@
     min-height: 5vh;
     flex-direction: column;
     height: fit-content;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
 }
 
 .search:hover {
@@ -82,12 +98,20 @@
 }
 
 #searchbarMobile {
-    width: 95%;
     height: 4vh;
+    width: 80%;
+}
+
+.logoutLink.dropdown {
+    display: none;
 }
 
 @media (max-width: 780px) {
     #mobileTopBar {
         display: flex;
+    }
+
+    .dropdown a {
+        color: var(--text-color) !important;
     }
 }

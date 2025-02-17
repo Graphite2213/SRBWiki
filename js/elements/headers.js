@@ -21,7 +21,7 @@ class Title1 extends LitElement {
 	`;
 
 	render() {
-        window._titles.push(this.textContent);
+        articleTitles.push(this.textContent);
 		//<w-h1> Header <w-h1>
 		return html`<div id="${this.textContent}" class="head1">${this.textContent}</div>`;
 	}

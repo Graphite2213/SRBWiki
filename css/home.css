@@ -29,3 +29,21 @@
     width: 35vw;
     padding: 10px;
 }
+
+@media (max-width: 780px)  {
+    #homeTiles {
+        gap: 2vw;
+    }
+
+    #textTile {
+        width: 80vw;
+    }
+
+    #newsTile {
+        width: 80vw;
+    }
+
+    #featuredTile {
+        width: 80vw;
+    }
+}

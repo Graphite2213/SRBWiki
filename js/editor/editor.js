@@ -1,14 +1,21 @@
-class Toolbar {
-    /*** @type {import("../types/index").ToolbarButtonMap} */
+// Toolbar and Editor classes used everywhere
+
+/**
+ * Editor toolbar class
+ */
+class Toolbar
+{
+    /*** @type {Wiki.ToolbarButtonMap} */
     toolbarButtons = new Map();
 
     /*** @type {HTMLElement} */
     toolbarElement = null;
 
-    /*** @type {import("../types/index").ToolbarButton} */
+    /*** @type {Wiki.ToolbarButton} */
     pusherTracker = { element: null };
 
-    constructor(toolbarElementId) {
+    constructor(toolbarElementId)
+    {
         this.toolbarElement = document.getElementById(toolbarElementId);
         const toolbarKids = this.toolbarElement.children;
 
@@ -19,12 +26,14 @@ class Toolbar {
         }
     }
 
-    HideButton(buttonId) {
+    HideButton(buttonId)
+    {
         // Parent elem to affect the wrapper
         this.toolbarButtons.get(buttonId).element.parentElement.style.display = "none";
     }
 
-    ShowButton(buttonId) {
+    ShowButton(buttonId)
+    {
         this.toolbarButtons.get(buttonId).element.parentElement.style.display = "flex";
     }
 
@@ -35,11 +44,13 @@ class Toolbar {
         this.pusherTracker.element.parentElement.classList.add('pusher');
     }
 
-    ChangeButtonText(buttonId, newText) {
+    ChangeButtonText(buttonId, newText)
+    {
         this.toolbarButtons.get(buttonId).element.innerText = newText;
     }
 
-    ChangeButtonStyle(buttonId, newStyle) {
+    ChangeButtonStyle(buttonId, newStyle)
+    {
         const wrapper = this.toolbarButtons.get(buttonId).element.parentElement;
         switch (newStyle)
         {
@@ -73,23 +84,28 @@ class Toolbar {
         }
     }
 
-    HideToolbar() {
+    HideToolbar()
+    {
         this.toolbarElement.style.display = "none";
         document.getElementById("mobileToolbarDropdown").style.display = "none";
     }
 
-    ShowToolbar() {
+    ShowToolbar()
+    {
         const toolbarKids = this.toolbarElement.children;
 
-        for (let i = toolbarKids.length - 1; i >= 0; --i) {
+        for (let i = toolbarKids.length - 1; i >= 0; --i)
+        {
             if (toolbarKids[i].classList.contains("textWrapper") && window.matchMedia("(max-width: 780px)").matches) 
             {
-                document.getElementById("mobileToolbarDropdown").append(toolbarKids[i].cloneNode(true));
+                const cloned = toolbarKids[i].cloneNode(true);
+                document.getElementById("mobileToolbarDropdown").append(cloned);
+                this.toolbarButtons[toolbarKids[i].id] = { element: cloned, parent: this };
                 toolbarKids[i].remove();
             }
         }
-          
-        this.toolbarElement.children
+
+        this.toolbarElement.children;
         this.toolbarElement.style.display = "flex";
     }
 
@@ -101,7 +117,7 @@ class Toolbar {
     DisableToolbar(message) 
     {
         document.getElementById("toolbar").innerHTML = `
-        <span style="margin-left: 5px; font-size: 1.5vmin;">
+        <span class="toolbarMessage">
             ${message}
         </span>
         <div onclick="BackToRead()" id="backButtonWrapper" class="toolWrapper textWrapper" title="Vrati se na stranicu">
@@ -110,8 +126,12 @@ class Toolbar {
         document.getElementById("toolbar").style.justifyContent = "space-around";
     }
 }
- 
-class Editor {
+
+/**
+ * Editor class
+ */
+class Editor
+{
 
     /*** @type {import("../types/ace").AceAjax.Editor} */
     aceInstance = {};
@@ -131,7 +151,12 @@ class Editor {
     /*** @type {HTMLElement} */
     overlayElement = null;
 
-    constructor(editorId, outputId, actualPageId, overlayId, toolbarId) {
+    /**
+    * Creates an ACE instance, sets default settings and parameters
+    * @returns {void}
+    */
+    constructor(editorId, outputId, actualPageId, overlayId, toolbarId)
+    {
         this.aceInstance = ace.edit(editorId);
         this.aceInstance.setTheme("ace/theme/github_light_default");
         this.aceInstance.session.setMode("ace/mode/html");
@@ -142,16 +167,22 @@ class Editor {
         this.overlayElement = document.getElementById(overlayId);
         this.editorElement.style.fontSize = '15px';
         this.toolbar = new Toolbar(toolbarId);
- 
+
         if (theme == "dark") this.aceInstance.setTheme("ace/theme/github_dark");
- 
+
         this.aceInstance.gotoLine(1);
- 
+
+        // Nothing to un/redo on creation
         document.getElementById("undo").style.filter = "contrast(0.2)";
         document.getElementById("redo").style.filter = "contrast(0.2)";
     }
 
-    EditorLoadingState() {
+    /**
+    * Shows loading spinner over editor
+    * @returns {void}
+    */
+    EditorLoadingState()
+    {
         this.toolbar.ShowToolbar();
         this.editorElement.parentElement.style.display = "flex";
 
@@ -164,7 +195,12 @@ class Editor {
         document.getElementById("loadingGif").style.display = "flex";
     }
 
-    EditorLoginState() {
+    /**
+    * Shows login button over editor
+    * @returns {void}
+    */
+    EditorLoginState()
+    {
         this.toolbar.ShowToolbar();
         this.toolbar.DisableToolbar(lang[locale].YouNeedToLogin);
         this.editorElement.parentElement.style.display = "flex";
@@ -178,50 +214,72 @@ class Editor {
         document.getElementById("loginWithGH").style.display = "flex";
     }
 
+    /**
+    * Changes editor's theme
+    * @returns {void}
+    * @param {("dark"|"light")} theme
+    */
     ChangeEditorTheme(theme)
     {
         if (theme == "light") this.aceInstance.setTheme("ace/theme/github_light_default");
-        else this.aceInstance.setTheme("ace/theme/github_dark"); 
+        else this.aceInstance.setTheme("ace/theme/github_dark");
     }
 
-    OpenEditor(content, isReadOnly = false) {
+    /**
+    * Shows editor with toolbar
+    * @returns {void}
+    * @param {string} content - Text that gets edited
+    * @param {boolean} isReadOnly - Can the editor be used?
+    */
+    OpenEditor(content, isReadOnly = false)
+    {
         this.aceInstance.setReadOnly(isReadOnly);
         this.aceInstance.session.setValue(content);
         this.editorElement.style.display = "flex";
         this.outputElement.style.display = "none";
         this.pageElement.style.display = "none";
         this.overlayElement.style.display = "none";
+        this.toolbar.ShowToolbar();
 
         this.editorElement.parentElement.style.display = "flex";
         EnableReloadPrompt();
 
         // Update undo and redo buttons
-        this.aceInstance.session.on('change', this._UndoRedoCheck);   
+        this.aceInstance.session.on('change', this._UndoRedoCheck);
         this._UndoRedoCheck();
     }
 
-    PreviewChanges() {
-        // Preview stuff that's in the text editor and keep the toolbar
-
+    /**
+    * Previews changes while keeping the toolbar
+    * @returns {void}
+    */
+    PreviewChanges()
+    {
         this.outputElement.innerHTML = WikiWhitelines(this.aceInstance.session.getValue());
 
         this.editorElement.style.display = "none";
         this.outputElement.style.display = "inline-block";
     }
 
-    UnpreviewChanges() {
-        // Preview stuff that's in the text editor and keep the toolbar
+    /**
+    * Hides changes and restores editor
+    * @returns {void}
+    */
+    UnpreviewChanges()
+    {
         this.outputElement.innerHTML = ``;
-        if (currentPage == "sandbox") _RefManager.ClearRefs();
+        if (pageTitle == "sandbox") _RefManager.ClearRefs();
 
         this.editorElement.style.display = "flex";
         this.outputElement.style.display = "none";
     }
 
-
+    /**
+    * Fully closes editor and hides toolbar
+    * @returns {void}
+    */
     CloseEditor()
     {
-        // Fully closes editor and hides toolbar
         this.editorElement.style.display = "none";
         this.outputElement.style.display = "none";
         this.overlayElement.style.display = "none";
@@ -233,11 +291,20 @@ class Editor {
         DisableReloadPrompt();
     }
 
+    /**
+    * Returns editor's contents
+    * @returns {string}
+    */
     GetContent() { return this.aceInstance.session.getValue(); }
 
+    /**
+    * Checks if there's anything to be un/redone and updates small buttons
+    * @returns {string}
+    */
     _UndoRedoCheck()
     {
-        if (currentPage != "sandbox")
+        // Outside of sandbox dont show publish without changes
+        if (pageTitle != "sandbox")
         {
             if (editorInstance.aceInstance.getSession().getValue() == unchangedPostText) 
             {
@@ -270,17 +337,29 @@ class Editor {
     }
 }
 
+/**
+ * Prevents page from reloading
+ * @returns {void}
+ */
 function beforeUnloadHandler(e) 
 {
     e.preventDefault();
     e.returnValue = true;
 }
 
+/**
+ * Enables reload protection
+ * @returns {void}
+ */
 function EnableReloadPrompt()
 {
     window.addEventListener("beforeunload", beforeUnloadHandler);
 }
 
+/**
+ * Disables reload protection
+ * @returns {void}
+ */
 function DisableReloadPrompt()
 {
     window.removeEventListener("beforeunload", beforeUnloadHandler);

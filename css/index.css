@@ -1,8 +1,3 @@
-@font-face {
-    font-family: Linux Libertine;
-    src: url(../../font/LinLibertine_RZ.ttf);
-}
-
 input, select {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -130,6 +125,17 @@ html, body {
     transition: visibility .5s, opacity .2s linear;
     visibility: hidden;
     opacity: 0;
+    left: 296px;
+    top: 620px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+#reftooltipImage {
+    width: 20%;
+    border: 1px solid grey;
 }
 
 #searchresults {
@@ -224,6 +230,18 @@ html, body {
     text-decoration: none;
 }
 
+.redirectedFrom {
+    font-size: 50%;
+    margin-left: 10px;
+    filter: opacity(0.7);
+}
+
+.mobileLogoLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @media (max-width: 780px)  {
     #mainArea {
         width: 100%;
@@ -231,22 +249,6 @@ html, body {
 
     #sidebar {
         display: none;
-    }
-
-    #homeTiles {
-        gap: 2vw;
-    }
-
-    #textTile {
-        width: 80vw;
-    }
-
-    #newsTile {
-        width: 80vw;
-    }
-
-    #featuredTile {
-        width: 80vw;
     }
 
     #mobileTopBar {
@@ -259,12 +261,13 @@ html, body {
         width: 89%;
         font-size: 1.9em;
         margin-left: 5vw;
+        margin-bottom: 10px;
     }
 
     #postText {
         max-width: 95%;
-        padding-left: 3vw;
-        padding-right: 3vw;
+        padding-left: 2vw;
+        padding-right: 2vw;
     }
 
     .seperator {
@@ -276,8 +279,11 @@ html, body {
     .result {
         margin-top: 0;
         margin-bottom: 0;
-        width: 95vw;
-        position: absolute;
-        left: 2%;
+        width: 83.5vw;
+    }
+
+    .redirectedFrom {
+        display: block;
+        margin-bottom: 10px;
     }
  }

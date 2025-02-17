@@ -80,6 +80,15 @@ a:visited {
     color: #bf3c2c;
 }
 
+.disabledDangerButton {
+    filter: opacity(0.5);
+}
+
+.disabledDangerButton:hover {
+    cursor: default;
+    background-color: #e74045
+}
+
 @media (max-width:780px)  {
     wvs-side ul {
         padding-left: 5vw;

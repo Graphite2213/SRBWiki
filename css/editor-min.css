@@ -2,17 +2,6 @@
     display: none;
 }
 
-#postText 
-{
-    display: inline-block;
-    flex-direction: column;
-    padding-left: 2vw;
-    padding-right: 5vw;
-    font-size: 1em;
-    align-self: flex-start;
-    min-width: 85%;
-}
-
 .widthT {
     width: fit-content;
 }
@@ -85,6 +74,11 @@
     justify-content: center;
     margin-bottom: 5vmin;
     cursor: pointer;
+}
+
+.toolbarMessage {
+    margin-left: 5px;
+    font-size: 1.5vmin;
 }
 
 #loadingGif {
@@ -165,7 +159,7 @@
     margin-left: auto;
 }
 
-#logoutLink {
+.logoutLink {
     display: none;
 }
 
@@ -451,7 +445,6 @@
         align-items: center;
         border: 1px solid grey;
         background-color: var(--infobox-bg-dark);
-        border-top: 0;
         padding: 10px;
         gap: 5px;
     }
@@ -468,5 +461,18 @@
     .annotation {
         width: 90%;
         margin-top: 15px;
+    }
+
+    #loginWithGH {
+        width: 60vw;
+    }
+    
+    .toolbarMessage {
+        margin-left: 5px;
+        font-size: 1.5vmax;
+    }
+
+    #loginPrompt {
+        width: 95vw;
     }
 }

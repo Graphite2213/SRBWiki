@@ -1,4 +1,5 @@
 // All prompts in both languages
+// Bad practice? I can't hear you LALALALALA
 window._languageDiff = {
     en: {
         BackPrompt: `Are you sure you want to close the editor? All changes will be lost.`,
@@ -13,6 +14,7 @@ window._languageDiff = {
         AdminLogAppearance: "This action will appear in admin log.",
         ReasonNeeded: "You need a justified reason for deletion:",
         RefTool: "Reference tool",
+        RedirectFrom: "Redirected from page",
 
         ImageTitle: `Images on this page`,
         HistoryTitle: `History of this page`,
@@ -35,6 +37,8 @@ window._languageDiff = {
         PublishButton: "Publish changes",
         PublishShort: "Publish",
         HistoryButton: "History",
+        MoveButton: "Move",
+        DeleteButton: "Delete",
         ChangesInfoText: "Changes info",
         ConfirmAddingImageButton: "Confirm image upload",
         AddImageButton: "Upload image",
@@ -55,9 +59,9 @@ window._languageDiff = {
         Level3Protection: "System protection",
 
         SystemAdmin: "System Administrator",
-        HigherAdmin: "Higher Administrator",
+        HigherAdmin: "Senior Administrator",
         Admin: "Administrator",
-        ApprovedUser: "Approved User",
+        ApprovedUser: "Verified User",
         User: "User",
         Banned: "Banned"
     },
@@ -65,7 +69,7 @@ window._languageDiff = {
         BackPrompt: `Da li ste sigurni da želite da izađete iz editora? Sve izmene biće izgubljene.`,
         PublishPrompt: `Da li ste sigurni da želite da objavite ove izmene na stranicu ""?`,
         RedirectMessage: `Ova stranica je <i>redirect</i> do stranice "".`,
-        ConflictMessage: "Ova stranica je izmenjena tokom vaše sesije editovanja. Molim vas lokalno sačuvajte sve izmene i osvežite stranicu.", 
+        ConflictMessage: "Ova stranica je izmenjena tokom vaše sesije editovanja. Molim vas lokalno sačuvajte sve izmene i osvežite stranicu.",
         YouNeedToLogin: "Morate se ulogovati da bi uređivali stranice.",
         DeletionConfirmation: "Da li ste sigurni da želite da obrišete ovu stranicu?",
         DraftDeletion: "Da li ste sigurni da želite da obrišete ovaj draft?",
@@ -74,7 +78,8 @@ window._languageDiff = {
         AdminLogAppearance: "Ova akcija će se prikazati u admin log-u.",
         ReasonNeeded: "Potrebno je da imate opravdan razlog za brisanje:",
         RefTool: "Alatka za izvore",
- 
+        RedirectFrom: "Redirect sa stranice",
+
         ImageTitle: `Slike stranice`,
         HistoryTitle: `Istorija stanice`,
         MetadataTitle: `Metapodaci stranice`,
@@ -96,6 +101,8 @@ window._languageDiff = {
         PublishButton: "Objavi izmene",
         PublishShort: "Objavi",
         HistoryButton: "Istorija",
+        DeleteButton: "Obriši",
+        MoveButton: "Pomeri",
         ChangesInfoText: "Informacije o izmenama",
         ConfirmAddingImageButton: "Potvrdi dodavanje slike",
         AddImageButton: "Dodaj sliku",
@@ -122,4 +129,4 @@ window._languageDiff = {
         User: "Korisnik",
         Banned: "Banovan"
     }
-}
+};

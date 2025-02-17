@@ -1,6 +1,11 @@
+// Manages mobile dropdown n stuff
 let showingDropdown = false;
 let showingToolbarDropdown = false;
 
+/**
+ * Toggles mobile dropdown
+ * @returns {void}
+ */
 function ToggleMobileDropdown()
 {
     if (showingDropdown) document.getElementById("mobileDropdown").style.display = "none";
@@ -8,6 +13,10 @@ function ToggleMobileDropdown()
     showingDropdown = !showingDropdown;
 }
 
+/**
+ * Toggles mobile toolbar dropdown
+ * @returns {void}
+ */
 function ToggleToolbarDropdown() 
 {
     if (showingToolbarDropdown) document.getElementById("mobileToolbarDropdown").style.display = "none";
