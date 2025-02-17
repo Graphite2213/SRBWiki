@@ -64,10 +64,10 @@ async function OnLoad(l, ps_pageExists = true)
 
     // Check for queries, load search and other page contents
     await QueryCheck();
+    LoadHomeContent();
     LoadSearch();
     if (pageTitle != "home" && pageTitle != "sandbox" && pageExists) await GetMetaData();
     else if (pageTitle != "sandbox") LoadSidebar();
-    await LoadHomeContent();
 
     // Once everything is loaded,  create an editor
     editorInstance = new Editor("editorInput", "editorOutput", "postText", "loginPrompt", "toolbar");
@@ -91,30 +91,6 @@ async function LoadSidebar()
         document.getElementById("pageContent").innerHTML = allTitles;
     }
 
-    // Only if ((loggedIn))
-    if (loggedIn)
-    {
-        // Display logged in text
-        for (const x of document.getElementsByClassName("loginSidebar"))
-        {
-            x.classList.remove("sidebarLink");
-            x.classList.add("sidebarText");
-            x.setAttribute("onclick", "");
-            x.innerHTML = `${lang[locale].LoggedInAs} <a class="sidebarLink" style="display: inline" onclick="ShowUserData('${userData.login}')">${userData.login}</a>`;
-        }
-
-        for (const x of document.getElementsByClassName("logoutLink"))
-        {
-            x.style.display = "flex";
-        }
-        // If user is cleared to do so, show move and delete options
-        if ((userData.clearance >= 3 && pageMetadata.meta.protection < 3) || userData.clearance >= 4) 
-        {
-            document.getElementById("deletePageLink").style.display = "block";
-            document.getElementById("movePageLink").style.display = "block";
-        }
-    }
-
     // There is a different link to other language based on if we're on mobile or not and we have to guess which one it is :3
     const properOtherLanguage = (window.innerWidth > mobileTreshold) ? "otherLanguage" : "otherLanguageMobile";
 
@@ -122,6 +98,12 @@ async function LoadSidebar()
     let oppLocale = 'en';
     if (locale == 'en') oppLocale = 'rs';
 
+    if (!pageExists)
+    {
+        document.getElementById(properOtherLanguage).classList.add("nonExistent");
+        document.getElementById(properOtherLanguage).href = selfURL + `/${oppLocale}/wiki/${pageTitle}`;
+        return;
+    }
     // Set sidebar link to other page linked in metadata
     if (!await PageExists(oppLocale, pageMetadata.meta.link)) document.getElementById(properOtherLanguage).classList.add("nonExistent");
 

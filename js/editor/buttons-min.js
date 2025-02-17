@@ -179,7 +179,9 @@ function OpenLocalEditor()
         {
             // Don't let my bad programming fool you, this is where you edit the template on a nonexistent page
             // You don't/can't use all this if the page doesn't already exist
-            editorInstance.OpenEditor(unchangedPostText, !CanAccess(userData.clearance, 2));
+            const disableDefault = !CanAccess(userData.clearance, 2);
+            if (disableDefault) editorInstance.toolbar.DisableToolbar(`${lang[locale].LowClearanceMessage} (${ComputeProtectionString(2)})`);
+            editorInstance.OpenEditor(unchangedPostText, disableDefault);
 
             editorInstance.toolbar.HideButton("historyButton");
             editorInstance.toolbar.HideButton("configEdit");
