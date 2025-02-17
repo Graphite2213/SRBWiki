@@ -1,0 +1,478 @@
+#fileInput input[type="file"] {
+    display: none;
+}
+
+.widthT {
+    width: fit-content;
+}
+
+#editorOutput {
+    width: 95%;
+    display: inline-block;
+    flex-direction: column;
+    padding-right: 5vw;
+    font-size: 1em;
+    align-self: flex-start;
+    min-width: 85%;
+    padding-left: 2vw;
+}
+
+#editorWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#toolbar {
+    height: 4vh;
+    width: 80vw;
+    border: 1px solid grey;
+    background-color: var(--infobox-bg);
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5vw;
+}
+
+#editorInput {
+    width: 80vw;
+    height: 80vh;
+    border: 1px solid grey;
+    border-top: 0;
+}
+
+#editorDiff {
+    width: 80vw;
+    height: 80vh;
+    border: 1px solid grey;
+    border-top: 0;
+    display: none;
+    position: relative;
+}
+
+#loginPrompt {
+    width: 80vw;
+    height: 80vh;
+    background-color: var(--infobox-bg);
+    border: 1px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loginWithGH {
+    font-size: 1.5em;
+    width: 20vw;
+    height: 5vh;
+    border-radius: 10px;
+    color: white;
+    background-color: #0D1117;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5vmin;
+    cursor: pointer;
+}
+
+.toolbarMessage {
+    margin-left: 5px;
+    font-size: 1.5vmin;
+}
+
+#loadingGif {
+    width: 5vmax;
+    height: auto;
+    margin-bottom: 5vmin;
+}
+
+#publishButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    filter: none;
+}
+
+#publishWrap:hover {
+    background-color: #03558f; 
+}
+
+.notableButton {
+    background-color: #0378cb;
+    color: white;
+    box-shadow: 0;
+    border: 1px solid grey;
+    padding: 10px;
+    font-weight: bold;
+    min-width: 5vw;
+}
+
+.notableButton:hover {
+    background-color: #03558f;
+    cursor: pointer;
+}
+
+.normalButton {
+    background-color: #e6e6e6;
+    box-shadow: 0;
+    border: 1px solid grey;
+    padding: 10px;
+    font-weight: bold;
+    min-width: 5vw;
+    color: black;
+}
+
+.normalButton:hover {
+    background-color: #bfbdbd;
+    cursor: pointer;
+}
+
+.dangerButton {
+    color: white;
+    background-color: #e74045;
+    box-shadow: 0;
+    border: 1px solid grey;
+    padding: 10px;
+    font-weight: bold;
+    min-width: 5vw;
+}
+
+.dangerButton:hover {
+    background-color: #ef242b; 
+    cursor: pointer;
+}
+
+.textWrapper {
+    width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-weight: bold;
+    user-select: none;
+}
+
+.pusher {
+    margin-left: auto;
+}
+
+.logoutLink {
+    display: none;
+}
+
+#publishWrap {
+    display: none;
+    background-color: #0378cb;
+    color: white;
+}
+
+#confirmationPromptText {
+    margin-bottom: 1vh;
+}
+
+.tooltipIcon {
+    width: 15px;
+    filter: opacity(0.2);
+    margin-left: 5px;
+}
+
+#imageEditor {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 10%;
+    justify-content: center;
+}
+
+#preview {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    max-width: 15vw;
+}
+
+#selects {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+}
+
+#imagePreview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.configList {
+    width: 18.3vh;
+}
+
+#historyEditor {
+    display: flex;
+    flex-direction: column;
+}
+
+#historyList {
+    height: 20vh;
+    width: 700px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#historyList::-webkit-scrollbar {
+    border-left: 1px grey solid;
+    width: 5px;
+}
+
+#historyList::-webkit-scrollbar-thumb {
+    background: #bbb5b5;
+}
+
+.historyElement {
+    width: 99.8%;
+    min-height: 33%;
+    border-bottom: 1px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 90%;
+}
+
+.hist-name {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hist-preview {
+    background-image: url("https://www.svgrepo.com/show/370049/eye.svg");
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: contrast(0.2);
+    background-blend-mode: lighten;
+}
+
+.hist-preview:hover {
+    filter: none;
+    cursor: pointer;
+}
+
+.hist-date {
+    font-style: italic;
+    width: 150px;
+    text-align: center;
+}
+
+.hist-desc {
+    max-width: 60%;
+}
+
+.hist-type {
+    width: 50px;
+    text-align: center;
+}
+
+.historyElement:first-child {
+    border-top: 0;
+}
+
+.historyElement:nth-child(n + 3):last-child
+{
+    border-bottom: 0;
+}
+
+#descriptionInput {
+    height: 5vh;
+    width: 80%;
+}
+
+.hist-icon {
+    width: 30px;
+    height: auto;
+    border-radius: 20px;
+}
+
+#userPFP {
+    width: 30%; 
+    border: 2px solid grey;
+}
+
+#keywordInput {
+    border-width: 1px;
+    border-style: solid;
+    border-color: light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    width: 18.1vh;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+    height: fit-content;
+}
+
+.keyword {
+    display: inline-block;
+    font-size: 80%;
+    background-color: #0378cb;
+    color: white;
+    border-radius: 5px;
+    padding: 4px;
+    margin: 2px;
+}
+ 
+#keywordTextIn {
+    border: 0;
+    min-width: 20%;
+    width: 50%;
+    margin: 2px;
+    height: 3vh;
+    flex-grow: 2;
+    background-color: inherit;
+}
+
+#keywordTextIn:focus, #keywordTextIn:focus-within, #keywordTextIn:focus-visible {
+    border: 0 !important;
+}
+
+.x-icon {
+    width: 10px; 
+    height: auto;
+}
+
+.x-icon:hover {
+    cursor: pointer;
+}
+
+#historyInfo {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    max-width: 45vw;
+}
+
+.infoField {
+    display: flex;
+    justify-content: space-between;
+    gap: 5vw;
+}
+
+#mobileToolbarWrap {
+    display: none;
+    margin-left: auto;
+}
+
+#mobileToolbarDropdown {
+    display: none;
+}
+
+#refToolInput {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.refToolField {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+@media (max-width:780px)  {
+    #editorInput {
+        width: 95vw;
+    }
+
+    #mobileToolbarWrap {
+        display: flex;
+        margin-left: auto;
+        margin-right: 5px;
+    }
+
+    #preview {
+        max-width: 50vw;
+    }
+
+    #configEditor {
+        width: 70vw;
+    }
+
+    #keywordInput {
+        width: 20.1vh;
+    }
+
+    .configList {
+        width: 20vh;
+    }
+
+    #historyList {
+        width: 90vw;
+    }
+
+    #confirmationPrompt {
+        max-width: 90vw;
+    }
+
+    #mobileToolbarButton {
+        background-image: url(https://www.svgrepo.com/show/506800/burger-menu.svg);
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+
+    #mobileToolbarDropdown {
+        display: none;
+        position: absolute;
+        height: fit-content;
+        width: 150px;
+        right: 2.2vw;
+        margin-top: 4.7vh;
+        z-index: 999;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid grey;
+        background-color: var(--infobox-bg-dark);
+        padding: 10px;
+        gap: 5px;
+    }
+
+    #mobileToolbarDropdown .textWrapper {
+        margin-left: 5px;
+    }
+
+    #toolbar {
+        width: 95vw;
+        margin-top: 5px;
+    }
+
+    .annotation {
+        width: 90%;
+        margin-top: 15px;
+    }
+
+    #loginWithGH {
+        width: 60vw;
+    }
+    
+    .toolbarMessage {
+        margin-left: 5px;
+        font-size: 1.5vmax;
+    }
+
+    #loginPrompt {
+        width: 95vw;
+    }
+}

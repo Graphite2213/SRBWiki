@@ -1,0 +1,96 @@
+:root {
+    color-scheme: light dark;
+
+    --h1-font-size: 1.5em;
+    --h2-font-size: 1.1em;
+    --h3-font-size: 1em;
+
+    --infobox-bg-light: #e8e8e8;
+    --page-bg-light: #fafafa;
+    --text-color-light: black;
+    --infobox-header-light: #bfbff5;
+    --link-basic-color-light: #36c;
+    --link-hover-color-light: #447ff5;
+    --link-visited-color-light: #6b4ba1;
+    --link-nonexistent-color-light: #bf3c2c;
+
+    --infobox-bg-dark: #14141a;
+    --page-bg-dark: #1f202b;
+    --text-color-dark: white;
+    --infobox-header-dark: #6a6aa3;
+    --link-basic-color-dark: #447ff5;
+    --link-hover-color-dark: #6594f1;
+    --link-visited-color-dark: #895fd1;
+    --link-nonexistent-color-dark: #f05c49;
+
+    --toolbar-item-filter: contrast(1);
+
+    --infobox-bg: light-dark(var(--infobox-bg-light), var(--infobox-bg-dark));
+    --page-bg: light-dark(var(--page-bg-light), var(--page-bg-dark));
+    --text-color: light-dark(var(--text-color-light), var(--text-color-dark));
+    --infobox-header: light-dark(var(--infobox-header-light), var(--infobox-header-dark));
+    --link-basic-color: light-dark(var(--link-basic-color-light), var(--link-basic-color-dark));
+    --link-hover-color: light-dark(var(--link-hover-color-light), var(--link-hover-color-dark));
+    --link-visited-color: light-dark(var(--link-visited-color-light), var(--link-visited-color-dark));
+    --link-nonexistent-color: light-dark(var(--link-nonexistent-color-light), var(--link-nonexistent-color-dark));
+}
+
+p {
+    margin-top: 8px;
+}
+
+wvs-side {
+    flex-basis: 100%;
+}
+
+wvs-side:last-child {
+    border-left: 1px dotted grey;
+    padding-left: 2%;
+}
+
+wvs-side ul {
+    padding-left: 1vw;
+    margin-top: .5vh;
+}
+
+.sidebarLink {
+    display: block;
+}
+
+.sidebarLink, .sidebarLink:visited, a {
+    cursor: pointer;
+    color: var(--link-basic-color);
+    text-decoration: none;
+}
+
+.sidebarLink:hover, a:hover {
+    text-decoration: underline;
+    color: var(--link-hover-color);
+}
+
+a:visited {
+    color: var(--link-visited-color);
+}
+
+.nonExistent {
+    color: #bf3c2c;
+}
+
+.nonExistent:visited {
+    color: #bf3c2c;
+}
+
+.disabledDangerButton {
+    filter: opacity(0.5);
+}
+
+.disabledDangerButton:hover {
+    cursor: default;
+    background-color: #e74045
+}
+
+@media (max-width:780px)  {
+    wvs-side ul {
+        padding-left: 5vw;
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "version": 1,
+    "include": [
+        "/en/wiki/*",
+        "/rs/wiki/*",
+        "/rs/home",
+        "/en/home"
+    ],
+    "exclude": [
+        "/rs/wiki/Special:Sandbox",
+        "/en/wiki/Special:Sandbox"
+    ]
+}

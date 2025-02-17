@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SRBWiki - Sandbox</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta content="#b5042a" data-react-helmet="true" name="theme-color">
+
+    <meta name="url" content="http://srb.graphite.in.rs/">
+    <meta name="language" content="RS">
+    <meta name="robots" content="all">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/wiki.css">
+    <link rel="stylesheet" href="/css/editor.css">
+    <link rel="stylesheet" href="/css/editor-min.css">
+    <link rel="stylesheet" href="/css/sandbox.css">
+    <link rel="stylesheet" href="/css/mobile.css">
+    <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.4/ace.js"
+        integrity="sha512-llC5e4MUoX59KrDpxBq/dm222f/DeDqm+UZ2StNkJn9gGshG/wWrziC9a6mOfGc/FQCYrgro/p7Xq47c0QA4FQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+</head>
+
+<body onload="OnLoad('rs')">
+    <div id="mainLayout">
+        <div id="confirmationBackdrop">
+            <div id="confirmationPrompt">
+                <span id="confirmationPromptText"></span>
+                <input id="descriptionInput" placeholder="Opis izmena" autocomplete="off">
+                <div id="userEditor">
+                    <img id="userPFP" style="width: 30%; border: 2px solid grey;" loading="lazy">
+                    <div id="userInfo">
+                        <div><b>Korisnik: </b><span id="user-login"></span></div>
+                        <div><b>Tip korisnika: </b><span id="user-clearance"></span></div>
+                        <div><b>Opaska: </b><i id="user-note"></i></div>
+                    </div>
+                    <div id="modButtons">
+                        <button class="notableButton access-2">Odobri</button>
+                        <button class="notableButton access-4">Podigni na Administratora</button>
+                        <button class="notableButton access-4">Podigni na Višeg Administratora</button>
+                        <button class="dangerButton access-4">Spusti</button>
+                        <button class="dangerButton access-3">Banuj</button>
+                    </div>
+                </div>
+                <div id="historyEditor">
+                </div>
+                <div id="imageEditor">
+                </div>
+                <div id="configEditor">
+                </div>
+                <div id="refToolInput">
+                    <div class="refToolField">Naslov <input placeholder="Naslov izvora"></div>
+                    <div class="refToolField">URL <input placeholder="URL do izvora"></div>
+                    <div class="refToolField">Objavljivač <input placeholder="Izdavač izvora (npr. RTS)"></div>
+                    <div class="refToolField">Autor <input placeholder="Autor izvora"></div>
+                    <div class="refToolField">Datum <input placeholder="Datum objavljivanja izvora"></div>
+                </div>
+                <span style="margin-top: 1vh;">
+                    <button class="normalButton" id="cancel" onclick="">Ne</button>
+                    <button class="notableButton" id="proceed" onclick="" style="margin-left: .5vw">Da</button>
+                </span>
+            </div>
+        </div>
+        <div id="sidebar">
+            <a href="/rs/home"><img id="logo" src="/images/logo.png"></a>
+            <div id="searchwrapper">
+                <input id="searchbar" autocomplete="off" placeholder="Pretraži SRBWiki" oninput="OnSearch(event)" />
+                <div id="searchresults">
+                </div>
+            </div>
+            <div class="seperator"></div>
+            <div id="featured">
+                <p id="featuredText">
+                    <a class="sidebarLink loginSidebar" onclick="LoginWithGithub()">Ulogujte se sa GitHub-om</a>
+                    <a class="sidebarLink logoutLink" onclick="LogoutWithGithub()">Izlogujte se</a>
+                    <br>
+                    <a class="sidebarLink" href="https://github.com/Graphite2213/SNSWiki/blob/master/docs/EDITING-RS.md"
+                        target="_blank">Pomozite u održavanju SRBWiki</a>
+                    <a class="sidebarLink" href="https://ko-fi.com/graphite2213" target="_blank">Podržite razvoj
+                        SRBWiki</a>
+                    <a class="sidebarLink" href="https://discord.com/invite/5tHKPFe8KN" target="_blank">SRBWiki Discord
+                        zajednica</a>
+                    <br>
+                    <a onclick="ThemeToggle()" class="sidebarLink" id="themeSwitch">Tamna tema</a>
+                    <br>
+                    <a class="sidebarLink" id="otherLanguage" href="/en/sandbox">English version of this page</a>
+                </p>
+            </div>
+            <div class="seperator" style="margin-top: auto;"></div>
+            <div style="margin-bottom: 10px;"><i>Graphite 2024-2025. ❤️</i></div>
+        </div>
+        <div id="mainArea" style="visibility: hidden;">
+            <div id="mobileTopBar">
+                <a href="/rs/home" style="display: flex;"><img src="/images/logo.png"
+                        style="height: 25px; width: auto; margin-left: 10px;"></a>
+                <div id="burgerMenu" onclick="ToggleMobileDropdown()"></div>
+            </div>
+            <div id="mobileDropdown">
+                <div class="dropdown search">
+                    <input id="searchbarMobile" autocomplete="off" placeholder="Pretraži SRBWiki"
+                        oninput="OnSearch(event)" />
+                    <div id="resultsMobile">
+                    </div>
+                </div>
+                <div class="dropdown"><a class="topbarLink loginSidebar" onclick="LoginWithGithub()">Ulogujte se sa
+                        GitHub-om</a></div>
+                <div class="dropdown logoutLink"><a class="topbarLink" onclick="LogoutWithGithub()">Izlogujte se</a>
+                </div>
+                <div class="dropdown"><a class="topbarLink"
+                        href="https://github.com/Graphite2213/SNSWiki-Pages/blob/master/rs/" target="_blank">Pomozite u
+                        održavanju SRBWiki</a></div>
+                <div class="dropdown"><a class="topbarLink" href="https://ko-fi.com/graphite2213"
+                        target="_blank">Podržite razvoj SRBWiki</a></div>
+                <div class="dropdown"><a class="topbarLink" href="https://discord.com/invite/5tHKPFe8KN"
+                        target="_blank">SRBWiki Discord zajednica</a></div>
+                <div class="dropdown"><a class="topbarLink" onclick="ThemeToggle()" id="themeSwitchMobile">Tamna
+                        tema</a></div>
+                <div class="dropdown"><a class="topbarLink" id="otherLanguageMobile" href="">English version of this
+                        page</a></div>
+            </div>
+            <div id="postTitle">Special:Sandbox</div>
+            <div class="seperator"></div>
+            <div id="postText">
+                <div id="toolbar">
+                    <div onclick="boldTool()" class="toolWrapper" style="margin-left: 10px;">
+                        <div class="tool" id="boldTool"></div>
+                    </div>
+                    <div onclick="italicTool()" class="toolWrapper">
+                        <div class="tool" id="italicTool"></div>
+                    </div>
+                    <div onclick="linkTool()" class="toolWrapper">
+                        <div class="tool" id="linkTool"></div>
+                    </div>
+                    <div onclick="imageTool()" class="toolWrapper">
+                        <div class="tool" id="imageTool"></div>
+                    </div>
+                    <div onclick="preRefTool()" class="toolWrapper">
+                        <div class="tool" id="refTool"></div>
+                    </div>
+                    <div onclick="highlightToggle()" class="toolWrapper">
+                        <div class="tool tWActive" id="highlightToggle"></div>
+                    </div>
+                    <div onclick="wrapToggle()" class="toolWrapper">
+                        <div class="tool tWActive" id="wrapToggle"></div>
+                    </div>
+                    <div class="toolbarSeparator"><span id="nonce"></span></div>
+                    <div onclick="undoEditor()" class="toolWrapper">
+                        <div class="tool" id="undo"></div>
+                    </div>
+                    <div onclick="redoEditor()" class="toolWrapper">
+                        <div class="tool" id="redo"></div>
+                    </div>
+
+                    <div onclick="PreDeleteDraft()" class="toolWrapper minusDraft">
+                        <div class="tool" id="deleteDraft"></div>
+                    </div>
+                    <div onclick="AddDraft()" class="toolWrapper plusDraft">
+                        <div class="tool" id="addDraft"></div>
+                    </div>
+                    <div class="toolWrapper selectDraft" id="draftDropWrapper">
+                        <select id="draftDropdown" onchange="LoadFromList()">
+                        </select>
+                    </div>
+                    <div onclick="PreviewEdit()" class="toolWrapper textWrapper" style="margin-left: 0;">
+                        <div class="tool textTool" id="previewButton" style="font-weight: bold;"><span
+                                id="previewIcon"></span>Prikaži</div>
+                    </div>
+                </div>
+                <div id="loginPrompt">
+                    <button id="loginWithGH" onclick="LoginWithGithub()"><img loading="lazy"
+                            style="filter: invert(1); margin-right: 10px;"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/1200px-Octicons-mark-github.svg.png"
+                            width="25px" height="auto" />Ulogujte se sa GitHub-om</button>
+                    <img id="loadingGif" src="https://i.gifer.com/ZKZg.gif" />
+                </div>
+                <div id="editorInput"></div>
+                <div id="editorOutput"></div>
+                <div id="reftooltip" onmouseover="HoverRefBox()" onmouseout="HoverRefBoxClear()">
+                    <img id="reftooltipImage" />
+                    <span id="reftooltipText"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span>
+        <script src="/js/util/languages.js"></script>
+        <script src="/js/index.js"></script>
+        <script src="/js/mobile.js"></script>
+        <script src="/js/util/util.js"></script>
+        <script src="/js/util/search.js"></script>
+        <script src="/js/util/theme.js"></script>
+        <script src="/js/editor/tools.js"></script>
+        <script src="/js/editor/editor.js"></script>
+        <script src="/js/editor/sandbox.js"></script>
+        <script src="/js/editor/buttons.js"></script>
+        <script src="/js/util/worker.js"></script>
+        <script type="module" src="/js/elements/base.js"></script>
+        <script type="module" src="/js/elements/headers.js"></script>
+        <script type="module" src="/js/elements/infobox.js"></script>
+        <script type="module" src="/js/elements/ref.js"></script>
+    </span>
+</body>
+
+</html>
