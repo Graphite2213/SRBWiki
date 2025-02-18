@@ -68,7 +68,9 @@ class InfoboxMain extends LitElement
 
 	@media (max-width:780px)  {
 		.infobox {
-			width: 30em;
+			width: 90vw;
+			margin-right: auto;
+			margin-left: auto;
 		}
 		
 		.infoboxWrapper {

@@ -320,7 +320,6 @@ function PrePreviewEdit()
         {
             document.getElementById("publishWrap").style.display = "flex";
             document.getElementById("previewWrap").style.display = "none";
-            document.getElementById("backButtonWrapper").style.display = "none";
         }
 
         // We need to clear the refs so they dont duplicate
@@ -340,7 +339,6 @@ function PrePreviewEdit()
         {
             document.getElementById("publishWrap").style.display = "none";
             document.getElementById("previewWrap").style.display = "flex";
-            document.getElementById("backButtonWrapper").style.display = "flex";
         }
 
         editorInstance.UnpreviewChanges();

@@ -12,7 +12,7 @@ function PopulateHistory()
 {
     let counter = 0;
     let curr = 1;
-    const infoText = !window.matchMedia(`(max-width: ${mobileTreshold}px)`).matches ? lang[locale].ChangesInfoText : lang[locale].ChangesInfoText.split(" ")[0];
+    const infoText = !window.matchMedia(`(max-width: ${mobileTreshold}px)`).matches ? lang[locale].ChangesInfoText : "Info";
 
     // Default history card
     const prompt = `

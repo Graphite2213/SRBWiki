@@ -173,12 +173,6 @@
     margin-bottom: 1vh;
 }
 
-.tooltipIcon {
-    width: 15px;
-    filter: var(--toolbar-item-filter) opacity(0.5);
-    margin-left: 5px;
-}
-
 #imageEditor {
     margin-bottom: 10px;
     display: flex;
@@ -392,6 +386,11 @@
 }
 
 @media (max-width:780px)  {
+    .hist-icon {
+        display: none;
+    }
+
+
     #editorInput {
         width: 95vw;
     }
@@ -407,15 +406,16 @@
     }
 
     #configEditor {
-        width: 70vw;
+        width: 90vw;
+        gap: 10px;
     }
 
     #keywordInput {
-        width: 20.1vh;
+        width: 18.3vh;  
     }
 
     .configList {
-        width: 20vh;
+        width: 18.4vh;
     }
 
     #historyList {
@@ -466,6 +466,7 @@
 
     #loginWithGH {
         width: 60vw;
+        height: 7vh;
     }
     
     .toolbarMessage {

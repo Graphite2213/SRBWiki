@@ -67,8 +67,6 @@ class WikiImage extends LitElement
 
 		img {
 			width: 65vw;
-        	min-width: 20vw;
-        	max-width: 30vw;
         	float: right;
         	clear: right;
 		}
@@ -349,10 +347,17 @@ class iIcon extends LitElement
 
 	static styles = css`
 	.tooltipIcon {
-    	width: 15px;
-    	filter: opacity(0.2);
+		width: 15px;
+    	filter: var(--toolbar-item-filter) opacity(0.2);
     	margin-left: 5px;
-	}`;
+	}
+	
+	@media (max-width:780px)  {
+		.tooltipIcon {
+			display: none;
+		}
+	}
+	`;
 
 	render()
 	{
