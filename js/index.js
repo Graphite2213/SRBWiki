@@ -18,7 +18,11 @@ const mobileTreshold = 780; // in px, consistent with CSS
 // Global variables
 let unchangedPostText = document.getElementById("postText").innerHTML.replaceAll("<p>", "").replaceAll("</p>", "");
 let pageTitle = decodeURIComponent(window.location.pathname.split("/").pop());
+
+/*** @type {("rs"|"en")} */
 let locale = window.location.pathname.split("/")[1];
+
+/*** @type {("dark"|"light")} */
 let theme;
 let editingTile = "";
 let editingETag = "";

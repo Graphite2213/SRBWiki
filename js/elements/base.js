@@ -51,6 +51,10 @@ class WikiImage extends LitElement
 		float: right;
 	}
 
+	img:hover {
+		cursor: pointer;
+	}
+
 	figcaption {
 		background-color: var(--infobox-bg);
     	padding: 5px;
@@ -100,7 +104,7 @@ class WikiImage extends LitElement
 	{
 		//<w-img> Caption|URL </w-img>
 		return html`<figure class="imgWrapper">
-			<img src="${this.url}" class="postImg">
+			<img src="${this.url}" onclick="window.open(this.url, '_blank');"" class="postImg">
 			<figcaption class="imgCaption">${this.caption}</figcaption>
 		</figure>`;
 	}

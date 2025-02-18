@@ -276,10 +276,11 @@ function ToggleDiff()
     else
     {
         // Otherwise open new diff editor
+        const diffTheme = theme == "light" ? "ace/theme/github_light_default" : "ace/theme/github_dark";
         editorInstance.toolbar.ChangeButtonText("historyButton", lang[locale].HideDiff);
         differ = new AceDiff({
             element: '#editorDiff',
-            theme: "ace/theme/github_light_default",
+            theme: diffTheme,
             mode: `ace/mode/html`,
             left: {
                 content: unchangedPostText,

@@ -310,3 +310,19 @@ function WikiWhitelines(text)
 
     return arr.join('\n\n');
 }
+
+/**
+ * GZip decompression string
+ * @returns {string}
+ */
+async function Decompress(byteArray, encoding)
+{
+    const cs = new DecompressionStream(encoding);
+    const writer = cs.writable.getWriter();
+    writer.write(byteArray);
+    writer.close();
+    return new Response(cs.readable).arrayBuffer().then(function (arrayBuffer)
+    {
+        return new TextDecoder().decode(arrayBuffer);
+    });
+}
