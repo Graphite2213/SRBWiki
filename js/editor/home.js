@@ -1,27 +1,4 @@
 // Home related methods
-/**
- * Loads sidebar for homepage
- * @returns {Promise<void>}
- */
-async function LoadHomeContent()
-{
-    if (loggedIn)
-    {
-        // Display logged in text
-        for (const x of document.getElementsByClassName("loginSidebar"))
-        {
-            x.classList.remove("sidebarLink");
-            x.classList.add("sidebarText");
-            x.setAttribute("onclick", "");
-            x.innerHTML = `${lang[locale].LoggedInAs} <a class="sidebarLink" style="display: inline" onclick="ShowUserData('${userData.login}')">${userData.login}</a>`;
-        }
-
-        for (const x of document.getElementsByClassName("logoutLink"))
-        {
-            x.style.display = "flex";
-        }
-    }
-}
 
 /**
  * Editing home tiles - wrapper

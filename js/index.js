@@ -64,7 +64,7 @@ async function OnLoad(l, ps_pageExists = true)
 
     // Check for queries, load search and other page contents
     await QueryCheck();
-    LoadHomeContent();
+    LoadLogin();
     LoadSearch();
     if (pageTitle != "home" && pageTitle != "sandbox" && pageExists) await GetMetaData();
     else if (pageTitle != "sandbox") LoadSidebar();
@@ -120,4 +120,28 @@ async function LoadSearch()
 {
     const response3 = await fetch(workerURL + `/search/${locale}`);
     searchData = (await response3.json()).pages;
+}
+
+/**
+ * Loads sidebar for homepage
+ * @returns {Promise<void>}
+ */
+async function LoadLogin()
+{
+    if (loggedIn)
+    {
+        // Display logged in text
+        for (const x of document.getElementsByClassName("loginSidebar"))
+        {
+            x.classList.remove("sidebarLink");
+            x.classList.add("sidebarText");
+            x.setAttribute("onclick", "");
+            x.innerHTML = `${lang[locale].LoggedInAs} <a class="sidebarLink" style="display: inline" onclick="ShowUserData('${userData.login}')">${userData.login}</a>`;
+        }
+
+        for (const x of document.getElementsByClassName("logoutLink"))
+        {
+            x.style.display = "flex";
+        }
+    }
 }

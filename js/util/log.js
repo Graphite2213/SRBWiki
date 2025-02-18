@@ -28,6 +28,8 @@ class LogEntry
  */
 async function PopulateLog()
 {
+    const lang = window._languageDiff;
+
     // Templates
     const pageCreateTemplate = lang[locale].pageCreateTemplate.replaceAll(":selfURL:", selfURL);
     const imageAddTemplate = lang[locale].imageAddTemplate.replaceAll(":selfURL:", selfURL);
