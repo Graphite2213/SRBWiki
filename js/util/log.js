@@ -29,17 +29,17 @@ class LogEntry
 async function PopulateLog()
 {
     // Templates
-    const pageCreateTemplate = lang[locale].pageCreateTemplate;
-    const imageAddTemplate = lang[locale].imageAddTemplate;
-    const pageRemoveTemplate = lang[locale].pageRemoveTemplate;
-    const imageRemoveTemplate = lang[locale].imageRemoveTemplate;
-    const approvalTemplate = lang[locale].approvalTemplate;
-    const escalationTemplate = lang[locale].escalationTemplate;
-    const higherEscalationTemplate = lang[locale].higherEscalationTemplate;
-    const deapprovalTemplate = lang[locale].deapprovalTemplate;
-    const patosTemplate = lang[locale].patosTemplate;
-    const banTemplate = lang[locale].banTemplate;
-    const moveTemplate = lang[locale].moveTemplate;
+    const pageCreateTemplate = lang[locale].pageCreateTemplate.replaceAll(":selfURL:", selfURL);
+    const imageAddTemplate = lang[locale].imageAddTemplate.replaceAll(":selfURL:", selfURL);
+    const pageRemoveTemplate = lang[locale].pageRemoveTemplate.replaceAll(":selfURL:", selfURL);
+    const imageRemoveTemplate = lang[locale].imageRemoveTemplate.replaceAll(":selfURL:", selfURL);
+    const approvalTemplate = lang[locale].approvalTemplate.replaceAll(":selfURL:", selfURL);
+    const escalationTemplate = lang[locale].escalationTemplate.replaceAll(":selfURL:", selfURL);
+    const higherEscalationTemplate = lang[locale].higherEscalationTemplate.replaceAll(":selfURL:", selfURL);
+    const deapprovalTemplate = lang[locale].deapprovalTemplate.replaceAll(":selfURL:", selfURL);
+    const patosTemplate = lang[locale].patosTemplate.replaceAll(":selfURL:", selfURL);
+    const banTemplate = lang[locale].banTemplate.replaceAll(":selfURL:", selfURL);
+    const moveTemplate = lang[locale].moveTemplate.replaceAll(":selfURL:", selfURL);
 
     // Fetch the entire log
     const data = fetch(fetchURL + "dev.log");
