@@ -35,7 +35,7 @@ export async function onRequest(context)
     html = html.replace(`<title>SrbijaWiki</title>`, `<title>${pageTitle} - SRBWiki</title>`);
     html = html.replace(`<meta name="description" content="">`, `<meta name="description" content="${_meta.description}">`);
     html = html.replace(`<meta name="keywords" content="">`, `<meta name="keywords" content="${_meta.keywords.join(", ")}">`);
-    html = html.replace(`<meta property="og:title" content="">`, `<meta property="og:title" content="SRBWiki - ${pageTitle}">`);
+    html = html.replace(`<meta property="og:title" content="">`, `<meta property="og:title" content="${pageTitle}">`);
     html = html.replace(`<meta property="og:description" content="">`, `<meta property="og:description" content="${_meta.description}">`);
     html = html.replace(`<meta property="og:url" content="">`, `<meta property="og:url" content="${request.url}">`);
     html = html.replace(`<meta property="og:image" content="">`, `<meta property="og:image" content="https://data.graphite.in.rs/${locale}/${pageTitle}/Images/${_meta.image}">`);
