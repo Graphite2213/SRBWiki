@@ -66,7 +66,7 @@ window._languageDiff = {
         Banned: "Banned",
 
         pageCreateTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> created page <b><a href=":selfURL:/:locale:/wiki/:page:">:page:</a> (:locale:)</b>`,
-        imageAddTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> added image <b>:page:</b> to page <b><a href=":selfURL:/:locale:/wiki/:page:">:page:</a> (:locale:)</b>`,
+        imageAddTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> added image <b>:filename:</b> to page <b><a href=":selfURL:/:locale:/wiki/:page:">:page:</a> (:locale:)</b>`,
         pageRemoveTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> removed page <b>:page: (:locale:)</b>. Reason: :reason:`,
         imageRemoveTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> removed image <b>:filename:</b> from page <b><a href=":selfURL:/:locale:/wiki/:page:">:page:</a> (:locale:)</b>. Reason: :reason:`,
         approvalTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> verified user <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>`,
@@ -142,7 +142,7 @@ window._languageDiff = {
         Banned: "Banovan",
 
         pageCreateTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je stvorio stranicu <b><a href=":selfURL:/:locale:/wiki/:page:">:page:</a> (:locale:)</b>`,
-        imageAddTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je dodao sliku <b>:page:</b> na stranicu <b><a href=":selfURL:/:locale:/wiki/:page:">:page:</a> (:locale:)</b>`,
+        imageAddTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je dodao sliku <b>:filename:</b> na stranicu <b><a href=":selfURL:/:locale:/wiki/:page:">:page:</a> (:locale:)</b>`,
         pageRemoveTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio stranicu <b>:page: (:locale:)</b>. Razlog: :reason:`,
         imageRemoveTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je uklonio sliku <b>:filename:</b> na stranici <b><a href=":selfURL:/:locale:/wiki/:page:">:page:</a> (:locale:)</b>. Razlog: :reason:`,
         approvalTemplate: `<b><a onclick="ShowUserData(':user:')">:user:</a></b> je potvrdio korisnika <b><a onclick="ShowUserData(':subject:')">:subject:</a></b>`,
