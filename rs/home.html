@@ -63,6 +63,11 @@
                 <div id="configEditor">
                 </div>
                 <div id="refToolInput">
+                    <div class="refToolField">Naslov <input placeholder="Naslov izvora"></div>
+                    <div class="refToolField">URL <input placeholder="URL do izvora"></div>
+                    <div class="refToolField">Objavljivač <input placeholder="Izdavač izvora (npr. RTS)"></div>
+                    <div class="refToolField">Autor <input placeholder="Autor izvora"></div>
+                    <div class="refToolField">Datum <input placeholder="Datum objavljivanja izvora"></div>
                 </div>
                 <span style="margin-top: 1vh;">
                     <button class="normalButton" id="cancel" onclick="">Ne</button>
@@ -201,6 +206,9 @@
                     </div>
                     <div onclick="PrePublish()" id="publishWrap" class="toolWrapper textWrapper">
                         <div class="tool textTool" id="publishButton">Objavi Izmene</div>
+                    </div>
+                    <div onclick="ToggleToolbarDropdown()" id="mobileToolbarWrap" class="toolWrapper">
+                        <div class="tool" id="mobileToolbarButton"></div>
                     </div>
                 </div>
                 <div id="mobileToolbarDropdown">
