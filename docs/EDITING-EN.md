@@ -2,7 +2,7 @@ _In this documentation and any other text, "article" refers only to the text on 
 
 ## Table of Contents
 
-- [Table of Contents](#table-of-contents)
+- [Getting started](#getting-started)
 - [Editing guidelines](#editing-guidelines)
   - [1. Objectivity](#1.-objectivity)
   - [1a. What is a valid source?](#1a.-what-is-a-valid-source?)
@@ -22,6 +22,10 @@ _In this documentation and any other text, "article" refers only to the text on 
   - [Redirect](#redirect)
   - [Dropdown](#dropdown)
   - [Infobox](#infobox)
+
+## Getting started
+
+It's easier than you think, just open the [sandbox](https://srb.graphite.in.rs/en/sandbox) and start writing about anything related to the wiki. Your city, local politicians, examples of corruption, or major scandals that everyone has heard of are all great topics for an article. You can also contribute to existing pages with new findings and information. If you’re going to create new pages, first check if there is a page that already covers that topic, even if it doesn't have the same title as yours. If the topics are identical (e.g., this year's student protests and student blockades), you can create a [redirect](#redirect).
 
 ## Editing guidelines
 

@@ -2,6 +2,7 @@ _U ovoj dokumentaciji i bilo kom drugom tehničkom tekstu "članak" se odnosi sa
 
 ## Sadržaj
 
+- [Gde početi](#gde-početi)
 - [Uređivačke smernice](#uređivačke-smernice)
   - [1. Objektivnost](#1.-objektivnost)
   - [1a. Šta je validan izvor?](#1a.-šta-je-validan-izvor?)
@@ -21,6 +22,10 @@ _U ovoj dokumentaciji i bilo kom drugom tehničkom tekstu "članak" se odnosi sa
   - [Redirect](#redirect)
   - [Dropdown](#dropdown)
   - [Infobox](#infobox)
+
+## Gde početi?
+
+Jednostavnije je no što mislite, otvorite [sandbox](https://srb.graphite.in.rs/rs/sandbox) i krenite da pišete o bilo čemu vezanom za wikiju. Vaš grad, lokalni političari i primeri korupcije, velike afere za koje su svi čuli su sve odlične teme za članak. Možete i da doprinosite već postojećim stranicama sa novim saznanjima i informacijama. Ukoliko ćete stvarati nove stranice, prvo proverite da li postoji stranica koja pokriva tu temu već, iako nema isti naslov kao vaša. Ukoliko su teme potpuno iste (npr. ovogodišnji studentski protesti i studentske blokade) možete stvoriti [redirect](#redirect).
 
 ## Uređivačke smernice
 
@@ -93,8 +98,8 @@ Specijalne stranice su one sa prefiksom `Special:`. One su uvek pod sistemskom z
 
 Trenutno jedine specijalne stranice su:
 
-- Admin Log, koji prati sve bitne izmene na sajtu poput stvaranja/uklanjanja novih stranica, slika, i akcija nad korisnicima.
-- Sandbox, u kom možete pisati članke i videti kako izgledaju bez da ih objavite. **Sandbox se čuva u lokalnoj memoriji vašeg pretraživača, koju možete slučajno obrisati dok brišete istoriju/kolačiće. Budite oprezni.**
+- [Admin log](https://srb.graphite.in.rs/rs/wiki/Special:Admin%20Log), koji prati sve bitne izmene na sajtu poput stvaranja/uklanjanja novih stranica, slika, i akcija nad korisnicima.
+- [Sandbox](https://srb.graphite.in.rs/rs/sandbox), u kom možete pisati članke i videti kako izgledaju bez da ih objavite. **Sandbox se čuva u lokalnoj memoriji vašeg pretraživača, koju možete slučajno obrisati dok brišete istoriju/kolačiće. Budite oprezni.**
 
 ## Sintaksna Dokumentacija
 
