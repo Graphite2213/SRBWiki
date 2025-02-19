@@ -20,6 +20,9 @@ export async function onRequest(context)
         html = html.replace(`<meta property="og:title" content="">`, `<meta property="og:title" content="${pageTitle}">`);
         html = html.replace(`<title>SrbijaWiki</title>`, `<title>${pageTitle} - SRBWiki</title>`);
         html = html.replace(`<div id="postTitle"></div>`, `<div id="postTitle">${pageTitle}</div>`);
+        html = html.replace(`<meta property="og:description" content="">`, `<meta property="og:description" content="This page doesn't exist yet. You can create it.">`);
+        html = html.replace(`<meta name="description" content="">`, `<meta name="description" content="This page doesn't exist yet. You can create it.">`);
+        html = html.replace(`<meta property="og:image" content="">`, `<meta property="og:image" content="/images/logo.png">`);
         return new Response(html, response);
     }
 

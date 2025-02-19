@@ -5,12 +5,12 @@
     <title>SrbijaWiki</title>
 
     <meta charset="utf-8">
-    <meta name="description" content="This page doesn't exist yet. You can create it.">
+    <meta name="description" content="">
     <meta name="keywords" content="">
     <meta property="og:title" content="">
-    <meta property="og:description" content="This page doesn't exist yet. You can create it.">
+    <meta property="og:description" content="">
     <meta property="og:url" content="">
-    <meta property="og:image" content="/images/logo.png">
+    <meta property="og:image" content="">
     <meta property="og:site_name" content="SrbijaWiki">
     <meta name="twitter:card" content="summary_large_image">
     <meta content="#b5042a" data-react-helmet="true" name="theme-color">
@@ -135,7 +135,8 @@
         <div id="sidebar">
             <a href="/en/home" style="display: flex"><img id="logo" src="/images/logo.png"></a>
             <div id="searchwrapper">
-                <input id="searchbar" autocomplete="off" placeholder="Search SRBWiki" oninput="OnSearch(event)" />
+                <input id="searchbar" autocomplete="off" placeholder="Search SRBWiki" oninput="OnSearch(event)"
+                    onfocusout="HideSearch()" onfocus="ShowSearch()" />
                 <div id="searchresults">
                 </div>
             </div>
